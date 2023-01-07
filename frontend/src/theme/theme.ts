@@ -5,7 +5,7 @@ const theme = createTheme({
   palette: {
     primary: {
       main: '#fc6b03',
-      dark: '#fc6b0377',
+      dark: '#333333',
     },
     secondary: {
       main: '#03fcf4',
@@ -13,12 +13,25 @@ const theme = createTheme({
     error: {
       main: red.A400,
     },
+    text: {
+      primary: '#ffffff',
+      secondary: '#000000'
+    }
   },
   typography: {
     fontFamily: 'sans-serif',
     fontSize: 14,
     allVariants: {
       color: '#ffffff',
+    },
+  },
+  components: {
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: "#333333",
+        }
+      }
     },
   },
 });
