@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,9 +12,9 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import { useTheme } from '@mui/styles';
 
-import logoCompany from '../assets/logo-company.png'
+import logoCompany from '../assets/logo-company.png';
 import { useNavigation } from '../navigation';
-import { AuthService } from "../services";
+import { AuthService } from '../services';
 
 const MainAppBar = () => {
   const navigation = useNavigation();
@@ -29,41 +29,31 @@ const MainAppBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
   const handleLogout = () => {
     setAnchorEl(null);
     AuthService.logout();
-    navigation("/login");
-  }
+    navigation('/login');
+  };
 
-  const CustomMenuItem = (
-    { name, onClick }: { name: string, onClick: () => void }
-  ) => (
+  const CustomMenuItem = ({ name, onClick }: { name: string; onClick: () => void }) => (
     <MenuItem
       onClick={onClick}
       sx={{
         '&:hover': {
           background: theme.palette.primary.dark,
-          transition: '0.2s'
+          transition: '0.2s',
         },
       }}
     >
-      <Typography color="black">
-        {name}
-      </Typography>
+      <Typography color="black">{name}</Typography>
     </MenuItem>
-  )
+  );
 
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2 }}
-        >
+        <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
           <MenuIcon />
         </IconButton>
 
@@ -79,11 +69,7 @@ const MainAppBar = () => {
           />
         </Link>
         <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
-          <IconButton
-            size="large"
-            onClick={handleMenu}
-            color="inherit"
-          >
+          <IconButton size="large" onClick={handleMenu} color="inherit">
             <AccountCircle />
           </IconButton>
           <Menu
@@ -106,7 +92,7 @@ const MainAppBar = () => {
         </Box>
       </Toolbar>
     </AppBar>
-  )
+  );
 };
 
 export default MainAppBar;

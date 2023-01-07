@@ -1,4 +1,1 @@
-export type PagesList = 
-  '/home' |
-  '/login'
-
+export type PagesList = '/home' | '/login';

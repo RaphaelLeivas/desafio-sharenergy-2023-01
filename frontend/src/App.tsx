@@ -1,8 +1,8 @@
-import React from "react";
-import { Routes, Route } from "react-router"
+import React from 'react';
+import { Routes, Route } from 'react-router';
 
-import { PrivateRoute } from "./navigation";
-import { Main, Login } from "./pages";
+import { PrivateRoute } from './navigation';
+import { Main, Login } from './pages';
 import { Theme } from '@mui/material/styles';
 
 declare module '@mui/styles/defaultTheme' {

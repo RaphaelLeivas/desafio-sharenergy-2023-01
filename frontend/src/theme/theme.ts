@@ -18,9 +18,9 @@ const theme = createTheme({
     fontFamily: 'sans-serif',
     fontSize: 14,
     allVariants: {
-      color: '#ffffff'
+      color: '#ffffff',
     },
-  }
+  },
 });
 
 export default theme;
