@@ -1,0 +1,112 @@
+import React from "react";
+
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+import { useTheme } from '@mui/styles';
+
+import logoCompany from '../assets/logo-company.png'
+import { useNavigation } from '../navigation';
+import { AuthService } from "../services";
+
+const MainAppBar = () => {
+  const navigation = useNavigation();
+  const theme = useTheme();
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  
+  const handleLogout = () => {
+    setAnchorEl(null);
+    AuthService.logout();
+    navigation("/login");
+  }
+
+  const CustomMenuItem = (
+    { name, onClick }: { name: string, onClick: () => void }
+  ) => (
+    <MenuItem
+      onClick={onClick}
+      sx={{
+        '&:hover': {
+          background: theme.palette.primary.dark,
+          transition: '0.2s'
+        },
+      }}
+    >
+      <Typography color="black">
+        {name}
+      </Typography>
+    </MenuItem>
+  )
+
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 2 }}
+        >
+          <MenuIcon />
+        </IconButton>
+
+        <Link href="/">
+          <Box
+            component="img"
+            sx={{
+              maxHeight: { xs: 30 },
+              maxWidth: { xs: 200, md: 750 },
+            }}
+            alt="Logo da Sharenergy"
+            src={logoCompany}
+          />
+        </Link>
+        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
+          <IconButton
+            size="large"
+            onClick={handleMenu}
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <CustomMenuItem name="Meu Perfil" onClick={handleClose} />
+            <CustomMenuItem name="Sair" onClick={handleLogout} />
+          </Menu>
+        </Box>
+      </Toolbar>
+    </AppBar>
+  )
+};
+
+export default MainAppBar;

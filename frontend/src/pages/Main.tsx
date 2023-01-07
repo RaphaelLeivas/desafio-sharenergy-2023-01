@@ -1,14 +1,14 @@
 import React from "react";
-import { useNavigation } from '../navigation';
+import { MainAppBar } from "../components";
+
+import Typography from '@mui/material/Typography';
 
 const Main = () => {
-  const navigation = useNavigation();
-
   return (
-    <div>
-      <h1>Main Page</h1>
-      <button onClick={() => navigation("/login")}>Go Back</button>
-    </div>
+    <>
+      <MainAppBar />
+      <Typography>Main Page</Typography>
+    </>
   )
 };
 

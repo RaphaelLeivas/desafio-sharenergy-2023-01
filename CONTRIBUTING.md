@@ -32,6 +32,9 @@ Convenções de estilo são enforçados por [ESLint](.eslintrc.js) e [Prettier](
 - React: functional style with Hooks (no classes)
 - `const` preferred over `let`
 
+- Priorize `import AppBar from '@mui/material/AppBar';` sobre `import { AppBr } from '@mui/material';`. Dessa forma temos
+um ganho de performance
+
 <!-- Falta atualizar as duas seções abaixo -->
 
 ## Scripts
@@ -69,3 +72,8 @@ This project is possible thanks to all these open source languages, libraries, a
 | [ESLint](https://eslint.org/)                 | TypeScript linting                        |
 | [Jest](https://jestjs.io/)                    | Unit testing framework                    |
 | [Cypress](https://www.cypress.io/)            | End-to-end testing framework              |
+
+## Latest Versions used in this project
+
+- React Router v6
+- Material UI v5
