@@ -27,7 +27,6 @@ Convenções de estilo são enforçados por [ESLint](.eslintrc.js) e [Prettier](
 - Single quotes
 - Two space indentation
 - Trailing commas in arrays and objects
-- [Non-default exports](https://humanwhocodes.com/blog/2019/01/stop-using-default-exports-javascript-module/) are preferred for components
 - Module imports are ordered and separated: **built-in** -> **external** -> **internal** -> **css/assets/other**
 - TypeScript: strict mode, with no implicitly any
 - React: functional style with Hooks (no classes)
