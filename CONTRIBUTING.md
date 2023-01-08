@@ -77,3 +77,8 @@ This project is possible thanks to all these open source languages, libraries, a
 
 - React Router v6
 - Material UI v5
+
+## Observações
+
+- `React.StrictMode` renderiza componentes duas vezes seguidas (apenas em dev, não em prod) para detectar possíveis problemas.
+Para parar isso é só remover as tags em `index.tsx`. [Mais info aqui](https://stackoverflow.com/a/61897567/16855638)

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 
-import { MainAppBar } from '../components';
-import { MainContext } from '../@types';
+import { MainAppBar, CustomSnackbar } from '../components';
+import { MainContext, DEFAULT_SNACKBAR_OPTIONS, SnackbarOptions } from '../@types';
 import { DRAWER_WIDTH } from '../constants';
 import { AppRoutes } from '../navigation';
 
@@ -27,19 +27,29 @@ const MainContent = styled('main')<{
 
 const Main = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(true);
+  const [snackbar, setSnackbar] = useState<SnackbarOptions>(DEFAULT_SNACKBAR_OPTIONS);
 
   return (
     <>
       <MainContext.Provider
         value={{
           isDrawerOpen: isDrawerOpen,
-          setIsDrawerOpen: (value: boolean) => setIsDrawerOpen(value),
+          setIsDrawerOpen: setIsDrawerOpen,
+          snackbar: snackbar,
+          setSnackbar: setSnackbar,
         }}
       >
         <MainAppBar />
         <MainContent open={isDrawerOpen}>
           <AppRoutes />
         </MainContent>
+        <CustomSnackbar
+          open={snackbar.open}
+          handleClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
+          message={snackbar.message}
+          type={snackbar.type}
+          duration={snackbar.duration}
+        />
       </MainContext.Provider>
     </>
   );

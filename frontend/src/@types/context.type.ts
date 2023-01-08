@@ -1,13 +1,27 @@
 import React from 'react';
 
-export interface IMainContext {
-  isDrawerOpen: boolean;
-  setIsDrawerOpen: (value: boolean) => void;
-}
+export type SnackbarTypes = 'success' | 'error' | 'warning' | 'info';
 
-export const DEFAULT_MAIN_CONTEXT: IMainContext = {
-  isDrawerOpen: true,
-  setIsDrawerOpen: (value: boolean) => undefined,
+export type SnackbarOptions = {
+  open: boolean;
+  message: string;
+  type: SnackbarTypes;
+  duration?: number;
 };
 
-export const MainContext = React.createContext<IMainContext>(DEFAULT_MAIN_CONTEXT);
+export const DEFAULT_SNACKBAR_OPTIONS = {
+  open: false,
+  message: '',
+  type: 'success' as SnackbarTypes,
+  duration: 2000,
+};
+
+export interface IMainContext {
+  isDrawerOpen: boolean;
+  setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  snackbar: SnackbarOptions;
+  setSnackbar: React.Dispatch<React.SetStateAction<SnackbarOptions>>;
+}
+
+export const MainContext = React.createContext<IMainContext>({} as IMainContext);
