@@ -72,15 +72,17 @@ const MainAppBar = () => {
         }}
       >
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            sx={{ mr: 2 }}
-            onClick={hangleToggleDrawer}
-          >
-            <MenuIcon />
-          </IconButton>
+          {!isDrawerOpen && (
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              sx={{ mr: 2 }}
+              onClick={hangleToggleDrawer}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
 
           <Link href="/">
             <Box

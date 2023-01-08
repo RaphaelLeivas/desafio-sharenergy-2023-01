@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -11,7 +12,8 @@ import Box from '@mui/material/Box';
 
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import HomeIcon from '@mui/icons-material/Home';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+
 import { styled } from '@mui/styles';
 
 import { MainContext } from '../@types';
@@ -19,6 +21,7 @@ import { DRAWER_WIDTH } from '../constants';
 import { Typography } from '@mui/material';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
+  width: '100%',
   display: 'flex',
   alignItems: 'center',
   ...theme.mixins.toolbar,
@@ -47,14 +50,9 @@ const MainDrawer = () => {
       open={isDrawerOpen}
     >
       <DrawerHeader>
-        <ListItem disablePadding onClick={handleCloseDrawer}>
-          <ListItemButton>
-            <ListItemIcon>
-              {<HomeIcon color='primary' />}
-            </ListItemIcon>
-            <ListItemText primary={'Home'} />
-          </ListItemButton>
-        </ListItem>
+        <IconButton onClick={handleCloseDrawer}>
+          <ChevronLeftIcon color="primary" />
+        </IconButton>
       </DrawerHeader>
       <Divider />
       <List>
@@ -80,7 +78,7 @@ const MainDrawer = () => {
         }}
       >
         <Typography>MIT License</Typography>
-        <Typography>2023</Typography>
+        <Typography>{new Date().getFullYear()}</Typography>
       </Box>
 
     </Drawer>
