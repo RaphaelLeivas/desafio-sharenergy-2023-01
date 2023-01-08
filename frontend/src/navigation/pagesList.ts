@@ -1,1 +1,1 @@
-export type PagesList = '/home' | '/login';
+export type PagesList = '/home' | '/login' | '/dogs' | '/cats' | '/clients';

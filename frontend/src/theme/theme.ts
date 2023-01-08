@@ -15,8 +15,8 @@ const theme = createTheme({
     },
     text: {
       primary: '#ffffff',
-      secondary: '#000000'
-    }
+      secondary: '#000000',
+    },
   },
   typography: {
     fontFamily: 'sans-serif',
@@ -29,9 +29,16 @@ const theme = createTheme({
     MuiDrawer: {
       styleOverrides: {
         paper: {
-          backgroundColor: "#333333",
-        }
-      }
+          backgroundColor: '#333333',
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: '#ffffff',
+        },
+      },
     },
   },
 });

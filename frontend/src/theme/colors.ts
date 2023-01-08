@@ -1,1 +1,1 @@
-export const APP_BACKGROUND_COLOR = "#333333";
+export const APP_BACKGROUND_COLOR = '#333333';

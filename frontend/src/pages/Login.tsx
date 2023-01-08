@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -16,16 +16,16 @@ import { useNavigation } from '../navigation';
 import { AuthService } from '../services';
 
 interface IFormData {
-  email: string
-  password: string
-  rememberMe: boolean
+  email: string;
+  password: string;
+  rememberMe: boolean;
 }
 
 const INITIAL_FORM_DATA: IFormData = {
   email: '',
   password: '',
-  rememberMe: false
-}
+  rememberMe: false,
+};
 
 const Copyright = (props: TypographyProps) => (
   <Typography variant="body2" align="center" {...props}>
@@ -36,11 +36,11 @@ const Copyright = (props: TypographyProps) => (
     {new Date().getFullYear()}
     {'.'}
   </Typography>
-)
+);
 
 const Login = () => {
   const navigation = useNavigation();
-  const [formData, setFormData] = useState<IFormData>(INITIAL_FORM_DATA)
+  const [formData, setFormData] = useState<IFormData>(INITIAL_FORM_DATA);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -54,18 +54,20 @@ const Login = () => {
 
     setFormData({
       ...formData,
-      [name]: value
-    })
-  }
+      [name]: value,
+    });
+  };
 
   const handleFormDataCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
 
     setFormData({
       ...formData,
-      [name]: checked
-    })
-  }
+      [name]: checked,
+    });
+  };
+
+  useEffect(() => AuthService.logout(), []);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -117,18 +119,13 @@ const Login = () => {
               />
             }
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Login
           </Button>
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
-                Esqueceu a senha?
+                Esqueci minha senha.
               </Link>
             </Grid>
             <Grid item>

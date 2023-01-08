@@ -1,1 +1,1 @@
-export { DRAWER_WIDTH } from './layout'
+export { DRAWER_WIDTH } from './layout';
