@@ -81,4 +81,5 @@ This project is possible thanks to all these open source languages, libraries, a
 ## Observações
 
 - `React.StrictMode` renderiza componentes duas vezes seguidas (apenas em dev, não em prod) para detectar possíveis problemas.
-Para parar isso é só remover as tags em `index.tsx`. [Mais info aqui](https://stackoverflow.com/a/61897567/16855638)
+Para parar isso é só remover as tags dele no JSX em `index.tsx`. [Mais info aqui](https://stackoverflow.com/a/61897567/16855638)
+- Uso de context global (MainContext) causa renderização de todos os filhos (ou seja, todos os componentes do AppRoutes) quando há mudanças no state do context. Se estiver tendo problemas de performance em prod pode ser causado por isso. Do jeito que foi feito, por exemplo, toda vez que chamar o Snackbar do context vai causar renderizações do Main.tsx e do componente que chamou o Snackbar (não está chamando todos os filhos, apenas o Main e o que chamou).

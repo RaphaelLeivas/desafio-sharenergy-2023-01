@@ -45,14 +45,20 @@ const Home = () => {
           open: true,
         }));
       } catch (error) {
-        console.log('>>LOG  ~ file: Home.tsx:23 ~ error', error);
+        console.error(error);
+        setSnackbar((prev) => ({
+          ...prev,
+          message: 'Falha ao buscar usuários!',
+          type: 'error',
+          open: true,
+        }));
       } finally {
         setLoading(false);
       }
     };
 
     getRandomPeople();
-  }, []);
+  }, [setSnackbar]);
 
   return (
     <Box component="div">

@@ -13,7 +13,7 @@ export const DEFAULT_SNACKBAR_OPTIONS = {
   open: false,
   message: '',
   type: 'success' as SnackbarTypes,
-  duration: 2000,
+  duration: 2500,
 };
 
 export interface IMainContext {
