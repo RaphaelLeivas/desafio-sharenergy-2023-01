@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -25,6 +25,8 @@ import { styled, useTheme } from '@mui/styles';
 import logoCompany from '../assets/logo-company.png';
 import { useNavigation } from '../navigation';
 import { AuthService } from '../services';
+import { MainContext } from '../@types';
+import { DRAWER_WIDTH } from '../constants';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -33,14 +35,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-const DRAWER_WIDTH = 240;
-
 const MainAppBar = () => {
   const navigation = useNavigation();
   const theme = useTheme();
+  const { isDrawerOpen, setIsDrawerOpen } = useContext(MainContext);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [openDrawer, setOpenDrawer] = useState(true);
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -51,11 +51,11 @@ const MainAppBar = () => {
   };
 
   const handleOpenDrawer = () => {
-    setOpenDrawer(true);
+    setIsDrawerOpen(true);
   };
 
   const handleCloseDrawer = () => {
-    setOpenDrawer(false);
+    setIsDrawerOpen(false);
   };
 
 
@@ -81,7 +81,17 @@ const MainAppBar = () => {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        sx={{
+          width: `calc(100% - ${isDrawerOpen ? DRAWER_WIDTH : 0}px)`,
+          ml: `${isDrawerOpen ? DRAWER_WIDTH : 0}px`,
+          transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+        }}
+      >
         <Toolbar>
           <IconButton
             size="large"
@@ -139,7 +149,7 @@ const MainAppBar = () => {
         }}
         variant="persistent"
         anchor="left"
-        open={openDrawer}
+        open={isDrawerOpen}
       >
         <DrawerHeader>
           <ListItem disablePadding onClick={handleCloseDrawer}>
