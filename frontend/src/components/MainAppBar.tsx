@@ -10,30 +10,14 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import Drawer from '@mui/material/Drawer';
-import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import HomeIcon from '@mui/icons-material/Home';
-import { styled, useTheme } from '@mui/styles';
+import { useTheme } from '@mui/styles';
 
 import logoCompany from '../assets/logo-company.png';
 import { useNavigation } from '../navigation';
 import { AuthService } from '../services';
 import { MainContext } from '../@types';
 import { DRAWER_WIDTH } from '../constants';
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
+import MainDrawer from './MainDrawer';
 
 const MainAppBar = () => {
   const navigation = useNavigation();
@@ -50,14 +34,9 @@ const MainAppBar = () => {
     setAnchorEl(null);
   };
 
-  const handleOpenDrawer = () => {
-    setIsDrawerOpen(true);
+  const hangleToggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen);
   };
-
-  const handleCloseDrawer = () => {
-    setIsDrawerOpen(false);
-  };
-
 
   const handleLogout = () => {
     setAnchorEl(null);
@@ -98,7 +77,7 @@ const MainAppBar = () => {
             edge="start"
             color="inherit"
             sx={{ mr: 2 }}
-            onClick={handleOpenDrawer}
+            onClick={hangleToggleDrawer}
           >
             <MenuIcon />
           </IconButton>
@@ -138,43 +117,7 @@ const MainAppBar = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      <Drawer
-        sx={{
-          width: DRAWER_WIDTH,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: DRAWER_WIDTH,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={isDrawerOpen}
-      >
-        <DrawerHeader>
-          <ListItem disablePadding onClick={handleCloseDrawer}>
-            <ListItemButton>
-              <ListItemIcon>
-                {<HomeIcon color='primary' />}
-              </ListItemIcon>
-              <ListItemText primary={'Home'} />
-            </ListItemButton>
-          </ListItem>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon color='primary' /> : <MailIcon color='primary' />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
+      <MainDrawer />
     </>
   );
 };
