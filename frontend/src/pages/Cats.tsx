@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState } from 'react';
 
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -13,16 +11,24 @@ import Paper from '@mui/material/Paper';
 
 import SearchIcon from '@mui/icons-material/Search';
 
-
-
-import { api } from '../services';
-import { MainContext } from '../@types';
 import { HTTP_STATUS_LIST } from '../constants';
+import notFoundImage from '../assets/not-found.png';
+
 
 const Cats = () => {
-  const { setSnackbar } = useContext(MainContext);
-  const [loading, setLoading] = useState(false);
-  const [code, setCode] = useState(100);
+  const [formCode, setFormCode] = useState('');
+  const [selectedCode, setSelectedCode] = useState('');
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const { key } = event;
+
+    if (key === 'Enter') {
+      updateSelectedCode()
+    }
+  }
+
+  const updateSelectedCode = () => { console.log('called', formCode, selectedCode); setSelectedCode(formCode) };
+  const isValidHttpCode = HTTP_STATUS_LIST.find(status => status === selectedCode);
 
   return (
     <>
@@ -30,9 +36,12 @@ const Cats = () => {
         <Autocomplete
           selectOnFocus
           disablePortal
-          options={HTTP_STATUS_LIST.map((status) => status.code)}
+          freeSolo
+          options={HTTP_STATUS_LIST}
           sx={{ width: 300, mr: 4 }}
-          renderInput={(params) => <TextField {...params} label="Status HTTP" />}
+
+          // @ts-ignore - corrigir o erro de tipagem depois
+          onSelect={(e: React.ChangeEvent<HTMLDivElement>) => setFormCode(e.target.value)} 
           noOptionsText="Sem opções"
           openOnFocus
           PaperComponent={({ children }) => (
@@ -42,21 +51,27 @@ const Cats = () => {
               </Typography>
             </Paper>
           )}
-          value={code.toString()}
-          // onInputChange={(e) => console.log(e.target)}
+          renderInput={(params) =>
+            <TextField
+              {...params}
+              label="Status HTTP"
+              onChange={(e) => setFormCode(e.target.value)}
+              value={formCode}
+              onKeyDown={handleKeyPress}
+            />
+          }
         />
         <Button
           variant="contained"
           color="success"
           startIcon={<SearchIcon />}
+          onClick={updateSelectedCode}
         >
           Buscar
         </Button>
       </Box>
 
-      {loading ? (
-        <CircularProgress />
-      ) : (
+      {selectedCode.length ? (
         <Card
           sx={{
             maxWidth: { xs: 250, md: 600 },
@@ -66,29 +81,38 @@ const Cats = () => {
           }}
           elevation={16}
         >
+          {isValidHttpCode && (
+            <Box
+              component="div"
+              sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}
+            >
+              <Typography align='center' variant="h5" >
+                Status {selectedCode}
+              </Typography>
+              <Button variant="outlined" >
+                <Link
+                  href={`https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status/${selectedCode}`}
+                  variant="body1"
+                  target="_blank"
+                  rel="noreferrer"
+                  underline="none"
+                >
+                  Saiba Mais
+                </Link>
+              </Button>
+            </Box>
+          )}
+
           <Box
             component="img"
             sx={{
               maxWidth: { xs: 250, md: 600 },
             }}
             alt="Imagem de um gato conforme o status HTTP selecionado."
-            src={`https://http.cat/102`}
+            src={isValidHttpCode ? `https://http.cat/${selectedCode}` : notFoundImage}
           />
-          <CardActions sx={{ justifyContent: 'flex-end', p: 0 }} >
-            <Button>
-              <Link
-                href={`https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status/${code}`}
-                variant="body1"
-                target="_blank"
-                rel="noreferrer"
-                underline="none"
-              >
-                Saiba Mais
-              </Link>
-            </Button>
-          </CardActions>
         </Card>
-      )}
+      ) : null}
     </>
   );
 };
