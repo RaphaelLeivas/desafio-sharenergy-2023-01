@@ -11,13 +11,13 @@ import { theme } from './theme';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </ThemeProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 // Learn more: https://bit.ly/CRA-vitals

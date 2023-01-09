@@ -1,4 +1,4 @@
-export interface IRandomPerson {
+export interface IRandomUser {
   id: string;
   name: string;
   email: string;
