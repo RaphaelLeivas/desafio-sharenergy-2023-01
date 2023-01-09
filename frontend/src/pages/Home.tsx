@@ -7,13 +7,13 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
 import { api } from '../services';
-import { IPerson, MainContext } from '../@types';
+import { IRandomPerson, MainContext } from '../@types';
 
 const Home = () => {
   const { setSnackbar } = useContext(MainContext);
 
   const [loading, setLoading] = useState(false);
-  const [users, setUsers] = useState<IPerson[]>([]);
+  const [users, setUsers] = useState<IRandomPerson[]>([]);
 
   useEffect(() => {
     const getRandomPeople = async () => {
@@ -61,7 +61,7 @@ const Home = () => {
   }, [setSnackbar]);
 
   return (
-    <Box component="div">
+    <>
       {loading ? (
         <CircularProgress />
       ) : (
@@ -97,7 +97,7 @@ const Home = () => {
           ))}
         </>
       )}
-    </Box>
+    </>
   );
 };
 

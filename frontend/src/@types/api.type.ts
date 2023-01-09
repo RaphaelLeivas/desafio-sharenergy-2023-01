@@ -1,4 +1,4 @@
-export interface IPerson {
+export interface IRandomPerson {
   id: string;
   name: string;
   email: string;
