@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
+import parse from 'html-react-parser';
 
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 import { api } from '../services';
@@ -10,35 +12,25 @@ import { MainContext } from '../@types';
 
 const Dogs = () => {
   const { setSnackbar } = useContext(MainContext);
+
   const [loading, setLoading] = useState(false);
+  const [dogMedia, setDogMedia] = useState<string | JSX.Element | JSX.Element[]>('');
 
-  const [dogMediaUuid, setDogMediaUuid] = useState('');
-  const [fileType, setFileType] = useState<'.jpg' | '.mp4'>('.jpg')
-
-  const getDogs = useCallback(async () => {
+  const getDog = useCallback(async () => {
     try {
       setLoading(true);
       const response = await api.get(
         `https://random.dog/`,
       );
 
-      const htmlResponse = response.data;
-      console.log(">>LOG  ~ file: Dogs.tsx:26 ~ htmlResponse", htmlResponse)
+      let htmlResponse = response.data;
       if (!htmlResponse || typeof htmlResponse !== 'string') {
         throw new Error("Resposta da API mal formatada!")
       }
 
-      const uuid = /((\w{4,12}-?)){5}/.exec(htmlResponse)?.[0];
-      if (!uuid) {
-        throw new Error("UUID da mídia não encontrado!")
-      }
-
-      if (htmlResponse.indexOf('.jpg') === -1) {
-        setFileType('.mp4')
-      } else {
-        setFileType('.jpg')
-      }
-      setDogMediaUuid(uuid);
+      // GAMBIARRA: adiciona manualmente a URL da hospedagem na src da mídia (imagem ou video)
+      htmlResponse = htmlResponse.replace('src="', 'src="https://random.dog/')
+      setDogMedia(parse(htmlResponse))
     } catch (error) {
       console.error(error);
       setSnackbar((prev) => ({
@@ -52,11 +44,11 @@ const Dogs = () => {
     }
   }, [setSnackbar])
 
-  useEffect(() => { getDogs() }, [getDogs])
+  useEffect(() => { getDog() }, [getDog])
 
   return (
     <>
-      {loading || !dogMediaUuid ? (
+      {loading ? (
         <CircularProgress />
       ) : (
         <Box component="div" sx={{ width: '100%', display: 'flex', flexDirection: "column", alignItems: 'center' }}>
@@ -64,35 +56,21 @@ const Dogs = () => {
             variant="contained"
             sx={{ mb: 2, mt: 2 }}
             startIcon={<RefreshIcon />}
-            onClick={getDogs}
+            onClick={getDog}
           >
             Novo Dog
           </Button>
-          {fileType === '.jpg' ? (
-            <Box
-              component="img"
-              sx={{
-                height: { xs: 250, md: 500 },
-                width: { xs: 250, md: 500 },
-                borderRadius: 16
-              }}
-              alt="Imagem de um cachorro aleatório"
-              src={`https://random.dog/${dogMediaUuid}.jpg`}
-            />
-          ) : (
-            <Box
-              component="video"
-              sx={{
-                height: { xs: 250, md: 500 },
-                width: { xs: 250, md: 500 },
-                borderRadius: 16
-              }}
-              src={`https://random.dog/${dogMediaUuid}.mp4`}
-              autoPlay
-              loop
-              muted
-            />
-          )}
+          <Card
+            sx={{
+              maxWidth: { xs: 250, md: 600 },
+              borderRadius: 16,
+              p: 4,
+              bgcolor: '#333333',
+            }}
+            elevation={16}
+          >
+            {dogMedia}
+          </Card>
         </Box>
       )}
     </>
