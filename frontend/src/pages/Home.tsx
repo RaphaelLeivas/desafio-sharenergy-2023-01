@@ -20,11 +20,11 @@ import { api } from '../services';
 import { USER_CARD_WIDTH } from '../constants';
 import { IRandomUser, MainContext } from '../@types';
 
-const RANDOM_USER_API_VERSION = '1.4'
-const RANDOM_USER_API_NUMBER_OF_RESULTS = '5'
-const RANDOM_USER_API_PASSWORD_TYPE = 'upper,lower,number,10-16'
-const RANDOM_USER_API_RESPONSE_FORMAT = 'json'
-const RANDOM_USER_API_NATIONALITIES = 'br,us'
+const RANDOM_USER_API_VERSION = '1.4';
+const RANDOM_USER_API_NUMBER_OF_RESULTS = '5';
+const RANDOM_USER_API_PASSWORD_TYPE = 'upper,lower,number,10-16';
+const RANDOM_USER_API_RESPONSE_FORMAT = 'json';
+const RANDOM_USER_API_NATIONALITIES = 'br,us';
 const MAX_NUMBER_OF_PAGES = 5;
 
 const Home = () => {
@@ -34,7 +34,7 @@ const Home = () => {
   const [users, setUsers] = useState<IRandomUser[]>([]);
   const [originalUsers, setOriginalUsers] = useState<IRandomUser[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   const seedId = useRef('');
 
   const handleFilter = (filter: string) => {
@@ -45,38 +45,45 @@ const Home = () => {
     const filteredUsers = originalUsers.filter((user) => {
       const lowerCaseFilter = filter.toLowerCase();
 
-      return user.name.toLowerCase().includes(lowerCaseFilter) ||
+      return (
+        user.name.toLowerCase().includes(lowerCaseFilter) ||
         user.username.toLowerCase().includes(lowerCaseFilter) ||
         user.email.toLowerCase().includes(lowerCaseFilter)
+      );
     });
 
     setUsers(filteredUsers);
-  }
+  };
 
   const getNewUsersSeed = async () => {
     try {
       setLoading(true);
-      const response = await api.get(
-        `https://randomuser.me/api/${RANDOM_USER_API_VERSION}/?results=${RANDOM_USER_API_NUMBER_OF_RESULTS}&page=1&password=${RANDOM_USER_API_PASSWORD_TYPE}&format=${RANDOM_USER_API_RESPONSE_FORMAT}&nat=${RANDOM_USER_API_NATIONALITIES}`
-      );
+      const response = await api.get(`https://randomuser.me/api/${RANDOM_USER_API_VERSION}/`, {
+        params: {
+          results: RANDOM_USER_API_NUMBER_OF_RESULTS,
+          password: RANDOM_USER_API_PASSWORD_TYPE,
+          format: RANDOM_USER_API_RESPONSE_FORMAT,
+          nat: RANDOM_USER_API_NATIONALITIES,
+          page: 1,
+        },
+      });
 
       if (!response || !response.data || !Array.isArray(response.data.results)) {
         throw new Error('Reposta da API mal formatada!');
       }
 
       const formattedUsers = response.data.results.map((result: any, index: number) => ({
-        id: result.id.value ?? index,
+        id: result.id.value,
         name: result.name.first + ' ' + result.name.last,
         email: result.email,
         username: result.login.username,
         age: result.dob.age,
         photo: result.picture.medium,
-      }))
+      }));
 
       setUsers(formattedUsers);
       setOriginalUsers(formattedUsers);
       seedId.current = response.data.info.seed;
-
     } catch (error) {
       console.error(error);
       setSnackbar((prev) => ({
@@ -88,7 +95,7 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   const getNextPage = async () => {
     try {
@@ -97,22 +104,29 @@ const Home = () => {
       }
 
       setLoading(true);
-      const response = await api.get(
-        `https://randomuser.me/api/${RANDOM_USER_API_VERSION}/?results=${RANDOM_USER_API_NUMBER_OF_RESULTS}&page=${currentPage}&password=${RANDOM_USER_API_PASSWORD_TYPE}&format=${RANDOM_USER_API_RESPONSE_FORMAT}&nat=${RANDOM_USER_API_NATIONALITIES}&seed=${seedId.current}`
-      );
+      const response = await api.get(`https://randomuser.me/api/${RANDOM_USER_API_VERSION}/`, {
+        params: {
+          results: RANDOM_USER_API_NUMBER_OF_RESULTS,
+          password: RANDOM_USER_API_PASSWORD_TYPE,
+          format: RANDOM_USER_API_RESPONSE_FORMAT,
+          nat: RANDOM_USER_API_NATIONALITIES,
+          page: currentPage,
+          seed: seedId.current,
+        },
+      });
 
       if (!response || !response.data || !Array.isArray(response.data.results)) {
         throw new Error('Reposta da API mal formatada!');
       }
 
       const formattedUsers = response.data.results.map((result: any, index: number) => ({
-        id: result.id.value ?? index,
+        id: result.id.value,
         name: result.name.first + ' ' + result.name.last,
         email: result.email,
         username: result.login.username,
         age: result.dob.age,
         photo: result.picture.medium,
-      }))
+      }));
 
       setUsers(formattedUsers);
       setOriginalUsers(formattedUsers);
@@ -127,7 +141,7 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     getNewUsersSeed();
@@ -138,12 +152,12 @@ const Home = () => {
   }, [currentPage]);
 
   const handleChangePage = async (action: 'next' | 'previous') => {
-    if (action === 'next') {  
-      setCurrentPage((prev) => prev + 1 <= MAX_NUMBER_OF_PAGES ? prev + 1 : prev);
+    if (action === 'next') {
+      setCurrentPage((prev) => (prev + 1 <= MAX_NUMBER_OF_PAGES ? prev + 1 : prev));
     } else {
-      setCurrentPage((prev) => prev - 1 >= 1 ? prev - 1 : prev);
+      setCurrentPage((prev) => (prev - 1 >= 1 ? prev - 1 : prev));
     }
-  }
+  };
 
   return (
     <>
@@ -154,7 +168,7 @@ const Home = () => {
           flexDirection: { xs: 'column', md: 'row' },
           alignItems: 'center',
           justifyContent: 'space-between',
-          mb: 4
+          mb: 4,
         }}
       >
         <TextField
@@ -188,17 +202,18 @@ const Home = () => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-around',
-          mb: 4, mt: 4
+          mb: 4,
+          mt: 4,
         }}
       >
         <IconButton size="large" onClick={() => handleChangePage('previous')}>
-          <ChevronLeftIcon color="primary" fontSize='large' />
+          <ChevronLeftIcon color="primary" fontSize="large" />
         </IconButton>
-        <Typography variant="h6" >
+        <Typography variant="h6">
           Exibindo Página {currentPage} de {MAX_NUMBER_OF_PAGES}
         </Typography>
         <IconButton size="large" onClick={() => handleChangePage('next')}>
-          <ChevronRightIcon color="primary" fontSize='large' />
+          <ChevronRightIcon color="primary" fontSize="large" />
         </IconButton>
       </Box>
 
@@ -221,7 +236,12 @@ const Home = () => {
                 >
                   <Card
                     elevation={8}
-                    sx={{ width: '100%', maxWidth: USER_CARD_WIDTH, bgcolor: '#111111', borderRadius: 8 }}
+                    sx={{
+                      width: '100%',
+                      maxWidth: USER_CARD_WIDTH,
+                      bgcolor: '#111111',
+                      borderRadius: 8,
+                    }}
                   >
                     <CardContent
                       sx={{
@@ -248,11 +268,12 @@ const Home = () => {
                 </Grid>
               ))}
             </Grid>
-          ) : <Typography>Nenhum usuário encontrado</Typography>}
+          ) : (
+            <Typography>Nenhum usuário encontrado</Typography>
+          )}
         </>
       )}
     </>
-
   );
 };
 

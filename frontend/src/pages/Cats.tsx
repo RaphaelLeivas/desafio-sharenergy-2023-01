@@ -14,7 +14,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import { HTTP_STATUS_LIST } from '../constants';
 import notFoundImage from '../assets/not-found.png';
 
-
 const Cats = () => {
   const [formCode, setFormCode] = useState('');
   const [selectedCode, setSelectedCode] = useState('');
@@ -23,35 +22,38 @@ const Cats = () => {
     const { key } = event;
 
     if (key === 'Enter') {
-      updateSelectedCode()
+      updateSelectedCode();
     }
-  }
+  };
 
-  const updateSelectedCode = () => { console.log('called', formCode, selectedCode); setSelectedCode(formCode) };
-  const isValidHttpCode = HTTP_STATUS_LIST.find(status => status === selectedCode);
+  const updateSelectedCode = () => {
+    console.log('called', formCode, selectedCode);
+    setSelectedCode(formCode);
+  };
+  const isValidHttpCode = HTTP_STATUS_LIST.find((status) => status === selectedCode);
 
   return (
     <>
-      <Box component="div" sx={{ mb: 4, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+      <Box
+        component="div"
+        sx={{ mb: 4, display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+      >
         <Autocomplete
           selectOnFocus
           disablePortal
           freeSolo
           options={HTTP_STATUS_LIST}
           sx={{ width: 300, mr: 4 }}
-
           // @ts-ignore - corrigir o erro de tipagem depois
-          onSelect={(e: React.ChangeEvent<HTMLDivElement>) => setFormCode(e.target.value)} 
+          onSelect={(e: React.ChangeEvent<HTMLDivElement>) => setFormCode(e.target.value)}
           noOptionsText="Sem opções"
           openOnFocus
           PaperComponent={({ children }) => (
-            <Paper style={{ background: "#333333" }}>
-              <Typography component={'span'}>
-                {children}
-              </Typography>
+            <Paper style={{ background: '#333333' }}>
+              <Typography component={'span'}>{children}</Typography>
             </Paper>
           )}
-          renderInput={(params) =>
+          renderInput={(params) => (
             <TextField
               {...params}
               label="Status HTTP"
@@ -59,7 +61,7 @@ const Cats = () => {
               value={formCode}
               onKeyDown={handleKeyPress}
             />
-          }
+          )}
         />
         <Button
           variant="contained"
@@ -84,12 +86,18 @@ const Cats = () => {
           {isValidHttpCode && (
             <Box
               component="div"
-              sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                mb: 2,
+              }}
             >
-              <Typography align='center' variant="h5" >
+              <Typography align="center" variant="h5">
                 Status {selectedCode}
               </Typography>
-              <Button variant="outlined" >
+              <Button variant="outlined">
                 <Link
                   href={`https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status/${selectedCode}`}
                   variant="body1"

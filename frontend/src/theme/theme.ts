@@ -14,7 +14,7 @@ const theme = createTheme({
       main: red.A400,
     },
     success: {
-      main: green.A400
+      main: green.A400,
     },
     text: {
       primary: '#ffffff',
