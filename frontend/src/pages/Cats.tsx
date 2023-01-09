@@ -1,70 +1,91 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+
+import SearchIcon from '@mui/icons-material/Search';
+
+
 
 import { api } from '../services';
 import { MainContext } from '../@types';
+import { HTTP_STATUS_LIST } from '../constants';
 
 const Cats = () => {
   const { setSnackbar } = useContext(MainContext);
   const [loading, setLoading] = useState(false);
-
-  const getCatByHttp = async (code: number) => {
-    try {
-      const response = await api.get(
-        `https://random.dog/`,
-        // { headers: { 
-        //   'Content-Type': 'application/json',
-        //   'Access-Control-Allow-Origin': '*',
-        // } }
-      );
-      console.log(">>LOG  ~ file: Cats.tsx:28 ~ response", response.data)
-    } catch (error) {
-      console.error(error);
-      setSnackbar((prev) => ({
-        ...prev,
-        message: 'Falha ao buscar gatos!',
-        type: 'error',
-        open: true,
-      }));
-    } finally {
-      setLoading(false);
-    }
-
-  }
-
-  useEffect(() => { getCatByHttp(200) }, [])
+  const [code, setCode] = useState(100);
 
   return (
     <>
+      <Box component="div" sx={{ mb: 4, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <Autocomplete
+          selectOnFocus
+          disablePortal
+          options={HTTP_STATUS_LIST.map((status) => status.code)}
+          sx={{ width: 300, mr: 4 }}
+          renderInput={(params) => <TextField {...params} label="Status HTTP" />}
+          noOptionsText="Sem opções"
+          openOnFocus
+          PaperComponent={({ children }) => (
+            <Paper style={{ background: "#333333" }}>
+              <Typography component={'span'}>
+                {children}
+              </Typography>
+            </Paper>
+          )}
+          value={code.toString()}
+          // onInputChange={(e) => console.log(e.target)}
+        />
+        <Button
+          variant="contained"
+          color="success"
+          startIcon={<SearchIcon />}
+        >
+          Buscar
+        </Button>
+      </Box>
+
       {loading ? (
         <CircularProgress />
       ) : (
-        <Card sx={{ maxWidth: 345 }}>
-          {/* <CardMedia
-            sx={{ height: 140 }}
-            image="https://www.pakainfo.com/wp-content/uploads/2021/09/sample-image-url-for-testing-300x169.jpg"
-            title="green iguana"
-          /> */}
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Lizard
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over 6,000
-              species, ranging across all continents except Antarctica
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Share</Button>
-            <Button size="small">Learn More</Button>
+        <Card
+          sx={{
+            maxWidth: { xs: 250, md: 600 },
+            borderRadius: 16,
+            p: 4,
+            bgcolor: '#000000',
+          }}
+          elevation={16}
+        >
+          <Box
+            component="img"
+            sx={{
+              maxWidth: { xs: 250, md: 600 },
+            }}
+            alt="Imagem de um gato conforme o status HTTP selecionado."
+            src={`https://http.cat/102`}
+          />
+          <CardActions sx={{ justifyContent: 'flex-end', p: 0 }} >
+            <Button>
+              <Link
+                href={`https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status/${code}`}
+                variant="body1"
+                target="_blank"
+                rel="noreferrer"
+                underline="none"
+              >
+                Saiba Mais
+              </Link>
+            </Button>
           </CardActions>
         </Card>
       )}

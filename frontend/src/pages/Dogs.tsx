@@ -19,18 +19,16 @@ const Dogs = () => {
   const getDog = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await api.get(
-        `https://random.dog/`,
-      );
+      const response = await api.get(`https://random.dog/`);
 
       let htmlResponse = response.data;
       if (!htmlResponse || typeof htmlResponse !== 'string') {
-        throw new Error("Resposta da API mal formatada!")
+        throw new Error('Resposta da API mal formatada!');
       }
 
       // GAMBIARRA: adiciona manualmente a URL da hospedagem na src da mídia (imagem ou video)
-      htmlResponse = htmlResponse.replace('src="', 'src="https://random.dog/')
-      setDogMedia(parse(htmlResponse))
+      htmlResponse = htmlResponse.replace('src="', 'src="https://random.dog/');
+      setDogMedia(parse(htmlResponse));
     } catch (error) {
       console.error(error);
       setSnackbar((prev) => ({
@@ -42,16 +40,21 @@ const Dogs = () => {
     } finally {
       setLoading(false);
     }
-  }, [setSnackbar])
+  }, [setSnackbar]);
 
-  useEffect(() => { getDog() }, [getDog])
+  useEffect(() => {
+    getDog();
+  }, [getDog]);
 
   return (
     <>
       {loading ? (
         <CircularProgress />
       ) : (
-        <Box component="div" sx={{ width: '100%', display: 'flex', flexDirection: "column", alignItems: 'center' }}>
+        <Box
+          component="div"
+          sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+        >
           <Button
             variant="contained"
             sx={{ mb: 2, mt: 2 }}

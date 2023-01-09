@@ -69,7 +69,7 @@ const Home = () => {
           {users.map((user) => (
             <Card
               elevation={8}
-              sx={{ width: '100%', maxWidth: 600, bgcolor: '#111111', mb: 4 }}
+              sx={{ width: '100%', maxWidth: 600, bgcolor: '#111111', mb: 4, borderRadius: 8 }}
               key={user.id}
             >
               <CardContent

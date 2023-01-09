@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { MainContext } from '../@types';
 
-
 const Clients = () => {
   const { setSnackbar } = useContext(MainContext);
 
@@ -12,7 +11,6 @@ const Clients = () => {
       type: 'error',
       open: true,
     }));
-
   }, [setSnackbar]);
 
   return <h1>Clients</h1>;
