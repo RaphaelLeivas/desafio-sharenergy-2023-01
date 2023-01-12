@@ -20,7 +20,7 @@ import { SvgIconComponent } from '@mui/icons-material';
 import { styled } from '@mui/styles';
 
 import { MainContext } from '../@types';
-import { DRAWER_WIDTH } from '../constants';
+import { DRAWER_WIDTH } from '../theme';
 import { useNavigation, PagesList } from '../navigation';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -66,7 +66,7 @@ const MainDrawer = () => {
     >
       <DrawerHeader>
         <IconButton onClick={handleCloseDrawer}>
-          <ChevronLeftIcon color="primary" />
+          <ChevronLeftIcon />
         </IconButton>
       </DrawerHeader>
       <Divider />
@@ -75,7 +75,7 @@ const MainDrawer = () => {
           <ListItem key={name} disablePadding onClick={() => handleDrawerClick(route)}>
             <ListItemButton>
               <ListItemIcon>
-                <Icon color="primary" />
+                <Icon />
               </ListItemIcon>
               <ListItemText primary={name} />
             </ListItemButton>

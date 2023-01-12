@@ -17,7 +17,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import { api } from '../services';
-import { USER_CARD_WIDTH } from '../constants';
+import { USER_CARD_WIDTH } from '../theme';
 import { IRandomUser, MainContext } from '../@types';
 
 const RANDOM_USER_API_VERSION = '1.4';
@@ -179,7 +179,7 @@ const Home = () => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <SearchIcon color="primary" />
+                <SearchIcon />
               </InputAdornment>
             ),
           }}
@@ -207,13 +207,13 @@ const Home = () => {
         }}
       >
         <IconButton size="large" onClick={() => handleChangePage('previous')}>
-          <ChevronLeftIcon color="primary" fontSize="large" />
+          <ChevronLeftIcon fontSize="large" />
         </IconButton>
         <Typography variant="h6">
           Exibindo Página {currentPage} de {MAX_NUMBER_OF_PAGES}
         </Typography>
         <IconButton size="large" onClick={() => handleChangePage('next')}>
-          <ChevronRightIcon color="primary" fontSize="large" />
+          <ChevronRightIcon fontSize="large" />
         </IconButton>
       </Box>
 

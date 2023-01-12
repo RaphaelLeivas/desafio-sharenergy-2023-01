@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 
 import { MainAppBar, CustomSnackbar } from '../components';
 import { MainContext, DEFAULT_SNACKBAR_OPTIONS, SnackbarOptions } from '../@types';
-import { DRAWER_WIDTH } from '../constants';
+import { DRAWER_WIDTH } from '../theme';
 import { AppRoutes } from '../navigation';
 
 const MainContent = styled('main')<{

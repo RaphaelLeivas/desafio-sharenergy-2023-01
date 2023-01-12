@@ -14,7 +14,8 @@ const theme = createTheme({
       main: red.A400,
     },
     success: {
-      main: green.A400,
+      main: green.A200,
+      dark: green.A700
     },
     text: {
       primary: '#ffffff',
@@ -43,6 +44,84 @@ const theme = createTheme({
         },
       },
     },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            color: '#4caf50',
+          },
+        },
+      },
+    },
+    MuiTable:{
+      styleOverrides: {
+        stickyHeader: {
+          backgroundColor: "#222222",
+        },
+        root: {
+          backgroundColor: "#222222",
+        },
+      }
+    },
+    MuiToolbar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#222222",
+        }
+      }
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        head: {
+          backgroundColor: "#222222",
+        },
+        root: {
+          padding: 16,
+          // textAlign: 'center',
+          '&:last-child': {
+            textAlign: 'center',
+          },
+          borderBottom: '1px solid #555555',
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        textColorInherit: {
+          '&$selected': {
+            color: '#fc6b03',
+          },
+        },
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        indicator: {
+          backgroundColor: '#fc6b03',
+        },
+      },
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          color: "#fc6b03",
+        },
+      }
+    },
+    MuiSelect: {
+      styleOverrides: {
+        icon: {
+          color: '#fc6b03'
+        },
+      }
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#222222'
+        },
+      }
+    }
   },
 });
 

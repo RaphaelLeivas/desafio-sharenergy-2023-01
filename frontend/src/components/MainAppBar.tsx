@@ -16,7 +16,7 @@ import logoCompany from '../assets/logo-company.png';
 import { useNavigation } from '../navigation';
 import { AuthService } from '../services';
 import { MainContext } from '../@types';
-import { DRAWER_WIDTH } from '../constants';
+import { DRAWER_WIDTH } from '../theme';
 import MainDrawer from './MainDrawer';
 
 const MainAppBar = () => {
@@ -71,7 +71,7 @@ const MainAppBar = () => {
           }),
         }}
       >
-        <Toolbar>
+        <Toolbar sx={{ backgroundColor: theme.palette.primary.main }} >
           {!isDrawerOpen && (
             <IconButton
               size="large"
