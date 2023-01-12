@@ -32,7 +32,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const drawerListIcons: { name: string; route: PagesList; Icon: SvgIconComponent }[] = [
-  { name: 'Home', route: '/home', Icon: HomeIcon },
   { name: 'Dogs', route: '/dogs', Icon: PetsIcon },
   { name: 'Cats', route: '/cats', Icon: PetsIcon },
   { name: 'Clientes', route: '/clients', Icon: HailIcon },
@@ -65,6 +64,14 @@ const MainDrawer = () => {
       open={isDrawerOpen}
     >
       <DrawerHeader>
+        <ListItem disablePadding onClick={() => handleDrawerClick('/home')}>
+          <ListItemButton>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Home"} />
+          </ListItemButton>
+        </ListItem>
         <IconButton onClick={handleCloseDrawer}>
           <ChevronLeftIcon />
         </IconButton>
