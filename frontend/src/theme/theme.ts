@@ -21,6 +21,10 @@ const theme = createTheme({
       primary: '#ffffff',
       secondary: '#000000',
     },
+    background: {
+      default: "#222222"
+    },
+
   },
   typography: {
     fontFamily: 'sans-serif',
@@ -41,15 +45,6 @@ const theme = createTheme({
       styleOverrides: {
         notchedOutline: {
           borderColor: '#ffffff',
-        },
-      },
-    },
-    MuiIconButton: {
-      styleOverrides: {
-        root: {
-          '&:hover': {
-            color: '#4caf50',
-          },
         },
       },
     },
@@ -74,14 +69,21 @@ const theme = createTheme({
       styleOverrides: {
         head: {
           backgroundColor: "#222222",
+          paddingTop: 16,
+          paddingBottom: 16,
+          paddingLeft: 0,
+          paddingRight: 0,
+          '&:last-child': {
+            textAlign: 'center',
+          },
         },
         root: {
           padding: 16,
-          // textAlign: 'center',
           '&:last-child': {
             textAlign: 'center',
           },
           borderBottom: '1px solid #555555',
+          backgroundColor: "#222222 !important",
         },
       },
     },

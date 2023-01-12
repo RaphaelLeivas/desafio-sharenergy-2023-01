@@ -76,11 +76,10 @@ const MainAppBar = () => {
             <IconButton
               size="large"
               edge="start"
-              color="inherit"
               sx={{ mr: 2 }}
               onClick={hangleToggleDrawer}
             >
-              <MenuIcon />
+              <MenuIcon sx={{ color: 'black' }} />
             </IconButton>
           )}
 
@@ -97,7 +96,7 @@ const MainAppBar = () => {
           </Link>
           <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
             <IconButton size="large" onClick={handleOpenMenu} color="inherit">
-              <AccountCircle />
+              <AccountCircle sx={{ color: 'black' }} />
             </IconButton>
             <Menu
               anchorEl={anchorEl}

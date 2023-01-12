@@ -1,11 +1,11 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import GroupsIcon from '@mui/icons-material/Groups';
 
 import { MainContext } from '../@types';
-import { CustomDataTable } from '../components';
+import { CustomDataTable, EditDialog } from '../components';
 
 const FAKE_TABLE_DATA = [
   {
@@ -52,6 +52,7 @@ const FAKE_TABLE_DATA = [
 
 const Clients = () => {
   const { setSnackbar } = useContext(MainContext);
+  const [openDialog, setOpenDialog] = useState(true);
 
   const tableColumnsList = [
     { name: 'name', label: 'Nome' },
@@ -61,7 +62,22 @@ const Clients = () => {
     { name: 'cpf', label: 'CPF' },
   ];
 
-  return <CustomDataTable title="Clientes" data={FAKE_TABLE_DATA} columns={tableColumnsList} />;
+  return (
+    <>
+      <CustomDataTable
+        title="Clientes"
+        data={FAKE_TABLE_DATA}
+        columns={tableColumnsList}
+        addCallback={() => setOpenDialog(true)}
+      />
+      <EditDialog
+        type="add"
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        onSave={(data) => console.log(data)}
+      />
+    </>
+  );
 };
 
 export default Clients;

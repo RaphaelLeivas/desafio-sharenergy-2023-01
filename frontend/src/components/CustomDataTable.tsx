@@ -17,8 +17,6 @@ import GroupIcon from '@mui/icons-material/Group';
 
 import { MUI_DATATABLE_LABELS } from '../constants';
 
-const CELL_WIDTH = 100;
-
 interface DataTableProps {
   columns: { name: string; label: string }[];
   editCallback?: (tableData: MUIDataTableMeta) => void;
@@ -81,7 +79,7 @@ const CustomDataTable = ({
         filter: true,
         sort: true,
         sortThirdClickReset: true,
-        display: isDevelopment ? true : 'excluded',
+        display: isDevelopment ? false : 'excluded',
       },
     }
   );
@@ -118,22 +116,22 @@ const CustomDataTable = ({
             </IconButton>
           </Box>
         ),
-        setCellProps: () => ({ width: CELL_WIDTH }),
       },
     }
   );
-  console.log(">>LOG  ~ file: CustomDataTable.tsx:121 ~ tableColumns", tableColumns)
+
+  const TableTitle = () => (
+    <Box display="flex" flexDirection="row" alignItems="center" >
+      <Typography variant="h5">{title}</Typography>
+      <GroupIcon sx={{ ml: 2 }} />
+    </Box>
+  )
 
   return (
     <MUIDataTable
-      title={
-        <Box display="flex" flexDirection="row" alignItems="center" >
-          <Typography variant="h5">{title}</Typography>
-          <GroupIcon sx={{ ml: 2 }} />
-        </Box>
-      }
+      title={<TableTitle />}
       data={data}
-      columns={columns}
+      columns={tableColumns}
       options={tableOptions}
     />
   );
