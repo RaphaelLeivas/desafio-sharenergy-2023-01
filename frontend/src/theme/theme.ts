@@ -15,16 +15,15 @@ const theme = createTheme({
     },
     success: {
       main: green.A200,
-      dark: green.A700
+      dark: green.A700,
     },
     text: {
       primary: '#ffffff',
       secondary: '#000000',
     },
     background: {
-      default: "#222222"
+      default: '#222222',
     },
-
   },
   typography: {
     fontFamily: 'sans-serif',
@@ -48,27 +47,27 @@ const theme = createTheme({
         },
       },
     },
-    MuiTable:{
+    MuiTable: {
       styleOverrides: {
         stickyHeader: {
-          backgroundColor: "#222222",
+          backgroundColor: '#222222',
         },
         root: {
-          backgroundColor: "#222222",
+          backgroundColor: '#222222',
         },
-      }
+      },
     },
     MuiToolbar: {
       styleOverrides: {
         root: {
-          backgroundColor: "#222222",
-        }
-      }
+          backgroundColor: '#222222',
+        },
+      },
     },
     MuiTableCell: {
       styleOverrides: {
         head: {
-          backgroundColor: "#222222",
+          backgroundColor: '#222222',
           paddingTop: 16,
           paddingBottom: 16,
           paddingLeft: 0,
@@ -83,7 +82,7 @@ const theme = createTheme({
             textAlign: 'center',
           },
           borderBottom: '1px solid #555555',
-          backgroundColor: "#222222 !important",
+          backgroundColor: '#222222 !important',
         },
       },
     },
@@ -106,24 +105,24 @@ const theme = createTheme({
     MuiSvgIcon: {
       styleOverrides: {
         root: {
-          color: "#fc6b03",
+          color: '#fc6b03',
         },
-      }
+      },
     },
     MuiSelect: {
       styleOverrides: {
         icon: {
-          color: '#fc6b03'
+          color: '#fc6b03',
         },
-      }
+      },
     },
     MuiMenuItem: {
       styleOverrides: {
         root: {
-          backgroundColor: '#222222'
+          backgroundColor: '#222222',
         },
-      }
-    }
+      },
+    },
   },
 });
 

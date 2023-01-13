@@ -71,14 +71,9 @@ const MainAppBar = () => {
           }),
         }}
       >
-        <Toolbar sx={{ backgroundColor: theme.palette.primary.main }} >
+        <Toolbar sx={{ backgroundColor: theme.palette.primary.main }}>
           {!isDrawerOpen && (
-            <IconButton
-              size="large"
-              edge="start"
-              sx={{ mr: 2 }}
-              onClick={hangleToggleDrawer}
-            >
+            <IconButton size="large" edge="start" sx={{ mr: 2 }} onClick={hangleToggleDrawer}>
               <MenuIcon sx={{ color: 'black' }} />
             </IconButton>
           )}

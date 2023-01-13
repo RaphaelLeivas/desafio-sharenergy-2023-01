@@ -52,7 +52,7 @@ const FAKE_TABLE_DATA = [
 
 const Clients = () => {
   const { setSnackbar } = useContext(MainContext);
-  const [openDialog, setOpenDialog] = useState(true);
+  const [dialog, setDialog] = useState({ open: false, type: 'add' as 'add' | 'edit' });
 
   const tableColumnsList = [
     { name: 'name', label: 'Nome' },
@@ -68,12 +68,13 @@ const Clients = () => {
         title="Clientes"
         data={FAKE_TABLE_DATA}
         columns={tableColumnsList}
-        addCallback={() => setOpenDialog(true)}
+        addCallback={() => setDialog({ type: 'add', open: true })}
+        editCallback={() => setDialog({ type: 'edit', open: true })}
       />
       <EditDialog
-        type="add"
-        open={openDialog}
-        onClose={() => setOpenDialog(false)}
+        type={dialog.type}
+        open={dialog.open}
+        onClose={() => setDialog((prev) => ({ ...prev, open: false }))}
         onSave={(data) => console.log(data)}
       />
     </>
