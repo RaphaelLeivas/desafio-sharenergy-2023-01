@@ -1,10 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import GroupsIcon from '@mui/icons-material/Groups';
-
-import { MainContext } from '../@types';
 import { CustomDataTable, EditDialog } from '../components';
 
 const FAKE_TABLE_DATA = [
@@ -51,7 +46,6 @@ const FAKE_TABLE_DATA = [
 ];
 
 const Clients = () => {
-  const { setSnackbar } = useContext(MainContext);
   const [dialog, setDialog] = useState({ open: false, type: 'add' as 'add' | 'edit' });
 
   const tableColumnsList = [
