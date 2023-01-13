@@ -69,7 +69,7 @@ const MainDrawer = () => {
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
-            <ListItemText primary={"Home"} />
+            <ListItemText primary={'Home'} />
           </ListItemButton>
         </ListItem>
         <IconButton onClick={handleCloseDrawer}>

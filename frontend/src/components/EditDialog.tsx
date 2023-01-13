@@ -6,13 +6,13 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
 
-import { MaskedInput } from './index'
+import { MaskedTextField } from './index';
 
 interface EditDialogProps {
-  type: 'edit' | 'add'
-  open: boolean
-  onClose: () => void
-  onSave: (data: IFormData) => void
+  type: 'edit' | 'add';
+  open: boolean;
+  onClose: () => void;
+  onSave: (data: IFormData) => void;
 }
 
 interface IFormData {
@@ -31,12 +31,7 @@ const INITIAL_FORM_DATA: IFormData = {
   phone: '',
 };
 
-const EditDialog = ({
-  type,
-  open,
-  onClose,
-  onSave,
-}: EditDialogProps) => {
+const EditDialog = ({ type, open, onClose, onSave }: EditDialogProps) => {
   const [formData, setFormData] = useState<IFormData>(INITIAL_FORM_DATA);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -54,28 +49,22 @@ const EditDialog = ({
     });
   };
 
-
   return (
     <Dialog
       onClose={onClose}
       open={open}
       maxWidth="md"
-      PaperProps={{ sx: { bgcolor: "#222222", p: 4 } }}
+      PaperProps={{ sx: { bgcolor: '#222222', p: 4 } }}
     >
       <Typography variant="h5" sx={{ mb: 2 }}>
         {type === 'edit' ? 'Editar ' : 'Cadastrar '} Cliente
       </Typography>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        noValidate
-      >
-        <Grid container spacing={2} >
-          <Grid item xs={12} md={6} >
+      <Box component="form" onSubmit={handleSubmit} noValidate>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={6}>
             <TextField
               variant="standard"
               margin="normal"
-              required
               fullWidth
               label="Nome"
               name="name"
@@ -86,62 +75,54 @@ const EditDialog = ({
             <TextField
               variant="standard"
               margin="normal"
-              required
               fullWidth
               name="email"
               label="Email"
               value={formData.email}
               onChange={handleFormDataChange}
             />
-            <TextField
+            <MaskedTextField
               variant="standard"
               margin="normal"
-              required
               fullWidth
               name="cpf"
               label="CPF"
               value={formData.cpf}
               onChange={handleFormDataChange}
+              mask="999.999.999-99"
             />
-
           </Grid>
-          <Grid item xs={12} md={6} >
+          <Grid item xs={12} md={6}>
             <TextField
               variant="standard"
               margin="normal"
-              required
               fullWidth
               label="Endereço"
               name="address"
               value={formData.address}
               onChange={handleFormDataChange}
             />
-            <MaskedInput
+            <MaskedTextField
+              variant="standard"
+              margin="normal"
+              fullWidth
               name="phone"
               label="Telefone"
               value={formData.phone}
               onChange={handleFormDataChange}
-              mask="(00) 0 0000-0000"
-              sx={{ width: '100%', mt: 2, mb: 2 }}
+              mask="(99) 9 9999-9999"
             />
           </Grid>
         </Grid>
 
-        <Box
-          component="div"
-          width="100%"
-          display="flex"
-          justifyContent="flex-end"
-        >
+        <Box component="div" width="100%" display="flex" justifyContent="flex-end">
           <Button color="error" variant="outlined" onClick={onClose}>
             Cancelar
           </Button>
-          <Button type="submit" variant="contained" sx={{ ml: 2 }} >
+          <Button type="submit" variant="contained" sx={{ ml: 2 }}>
             Salvar
           </Button>
         </Box>
-
-
       </Box>
     </Dialog>
   );

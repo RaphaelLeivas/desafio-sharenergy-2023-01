@@ -59,7 +59,7 @@ const CustomDataTable = ({
             '&:hover': {
               backgroundColor: 'success.main',
             },
-            p: 1.5
+            p: 1.5,
           }}
           onClick={addCallback}
         >
@@ -71,18 +71,16 @@ const CustomDataTable = ({
 
   let tableColumns: MUIDataTableColumn[] = [];
 
-  tableColumns.push(
-    {
-      name: 'id',
-      label: 'id',
-      options: {
-        filter: true,
-        sort: true,
-        sortThirdClickReset: true,
-        display: isDevelopment ? false : 'excluded',
-      },
-    }
-  );
+  tableColumns.push({
+    name: 'id',
+    label: 'id',
+    options: {
+      filter: true,
+      sort: true,
+      sortThirdClickReset: true,
+      display: isDevelopment ? false : 'excluded',
+    },
+  });
 
   for (const column of columns) {
     tableColumns.push({
@@ -96,36 +94,34 @@ const CustomDataTable = ({
     });
   }
 
-  tableColumns.push(
-    {
-      name: 'actions',
-      label: 'Ações',
-      options: {
-        filter: false,
-        sort: false,
-        download: false,
-        print: false,
-        customBodyRender: (value, tableMeta) => (
-          <Box display="flex" flexDirection="row" textAlign="center">
-            <IconButton aria-label="Editar" onClick={() => editCallback(tableMeta)}>
-              <EditIcon />
-            </IconButton>
+  tableColumns.push({
+    name: 'actions',
+    label: 'Ações',
+    options: {
+      filter: false,
+      sort: false,
+      download: false,
+      print: false,
+      customBodyRender: (value, tableMeta) => (
+        <Box display="flex" flexDirection="row" textAlign="center">
+          <IconButton aria-label="Editar" onClick={() => editCallback(tableMeta)}>
+            <EditIcon />
+          </IconButton>
 
-            <IconButton aria-label="Remover" onClick={() => deleteCallback(tableMeta)}>
-              <DeleteIcon />
-            </IconButton>
-          </Box>
-        ),
-      },
-    }
-  );
+          <IconButton aria-label="Remover" onClick={() => deleteCallback(tableMeta)}>
+            <DeleteIcon />
+          </IconButton>
+        </Box>
+      ),
+    },
+  });
 
   const TableTitle = () => (
-    <Box display="flex" flexDirection="row" alignItems="center" >
+    <Box display="flex" flexDirection="row" alignItems="center">
       <Typography variant="h5">{title}</Typography>
       <GroupIcon sx={{ ml: 2 }} />
     </Box>
-  )
+  );
 
   return (
     <MUIDataTable
