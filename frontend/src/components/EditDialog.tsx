@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import Typography from '@mui/material/Typography';
 
+import { MaskedInput } from './index'
+
 interface EditDialogProps {
   type: 'edit' | 'add'
   open: boolean
@@ -114,15 +116,13 @@ const EditDialog = ({
               value={formData.address}
               onChange={handleFormDataChange}
             />
-            <TextField
-              variant="standard"
-              margin="normal"
-              required
-              fullWidth
+            <MaskedInput
               name="phone"
               label="Telefone"
               value={formData.phone}
               onChange={handleFormDataChange}
+              mask="(00) 0 0000-0000"
+              sx={{ width: '100%', mt: 2, mb: 2 }}
             />
           </Grid>
         </Grid>
