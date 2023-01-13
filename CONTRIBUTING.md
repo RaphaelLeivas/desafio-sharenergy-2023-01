@@ -27,11 +27,13 @@ Convenções de estilo são enforçados por [ESLint](.eslintrc.js) e [Prettier](
 - Single quotes
 - Two space indentation
 - Trailing commas in arrays and objects
-- [Non-default exports](https://humanwhocodes.com/blog/2019/01/stop-using-default-exports-javascript-module/) are preferred for components
 - Module imports are ordered and separated: **built-in** -> **external** -> **internal** -> **css/assets/other**
 - TypeScript: strict mode, with no implicitly any
 - React: functional style with Hooks (no classes)
 - `const` preferred over `let`
+
+- Priorize `import AppBar from '@mui/material/AppBar';` sobre `import { AppBr } from '@mui/material';`. Dessa forma temos
+um ganho de performance
 
 <!-- Falta atualizar as duas seções abaixo -->
 
@@ -70,3 +72,15 @@ This project is possible thanks to all these open source languages, libraries, a
 | [ESLint](https://eslint.org/)                 | TypeScript linting                        |
 | [Jest](https://jestjs.io/)                    | Unit testing framework                    |
 | [Cypress](https://www.cypress.io/)            | End-to-end testing framework              |
+
+## Latest Versions used in this project
+
+- React Router v6
+- Material UI v5
+
+## Observações
+
+- `React.StrictMode` renderiza componentes duas vezes seguidas (apenas em dev, não em prod) para detectar possíveis problemas.
+Para parar isso é só remover as tags dele no JSX em `index.tsx`. [Mais info aqui](https://stackoverflow.com/a/61897567/16855638)
+- Uso de context global (MainContext) causa renderização de todos os filhos (ou seja, todos os componentes do AppRoutes) quando há mudanças no state do context. Se estiver tendo problemas de performance em prod pode ser causado por isso. Do jeito que foi feito, por exemplo, toda vez que chamar o Snackbar do context vai causar renderizações do Main.tsx e do componente que chamou o Snackbar (não está chamando todos os filhos, apenas o Main e o que chamou).
+- Para customizar o layout e cores com o MUI, basta inspecionar o element com o dev tools, achar o nome e aplicar o override no theme.ts. Com o MUi v5 e Typescript fica bem mais fácil de fazer.
