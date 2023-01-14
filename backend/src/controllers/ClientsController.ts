@@ -8,14 +8,7 @@ const create = async (req: Request, res: Response) => {
     const clientToCreate = { name, cpf, email, address, phone }
     Validators.validateClient(clientToCreate);
 
-    const client = new ClientModel({
-      name,
-      cpf,
-      email,
-      address,
-      phone,
-    });
-
+    const client = new ClientModel(clientToCreate);
     await client.save();
 
     const clientData = {
