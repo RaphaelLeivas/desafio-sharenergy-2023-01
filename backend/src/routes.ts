@@ -7,7 +7,7 @@ const routes = express.Router();
 routes.get('/clients', ClientsController.list);
 routes.get('/clients/:id', ClientsController.getById);
 routes.post('/clients', ClientsController.create);
-// routes.put("/users/:id", ClientsController.update);
-// routes.delete("/users/:id", ClientsController.delete);
+routes.put("/clients/:id", ClientsController.updateById);
+routes.delete("/clients/:id", ClientsController.deleteById);
 
 export default routes;
