@@ -18,11 +18,11 @@ const port = process.env.PORT;
 connectToDatabase();
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server + Nodemon 033 in SRC');
+  res.send(`Server is running at http://localhost:${port}`);
 });
 
 app.use(routes);
 
 app.listen(port, () => {
-  console.log(`[server]: Server is running in SRC aaa (DV) at http://localhost:${port}`);
+  console.log(`Server is running at http://localhost:${port}`);
 });
