@@ -8,7 +8,7 @@
     "build": "npx tsc",
     "start": "node dist/index.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
-    "prettier": "prettier --write \"./index.ts\""
+    "prettier": "prettier --write \"./src/**/*.{js,json,ts,tsx}\""
   },
   "keywords": [],
   "author": "",
@@ -18,6 +18,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "mongoose": "^6.8.3",
     "yarn": "^1.22.19"
   },
   "devDependencies": {
