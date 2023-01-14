@@ -1,1 +1,1 @@
-export { default as ClientModel } from './client'
+export { default as ClientModel } from './client';
