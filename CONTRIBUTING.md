@@ -77,6 +77,7 @@ This project is possible thanks to all these open source languages, libraries, a
 
 - React Router v6
 - Material UI v5
+- Express + Typescript [Setup](https://blog.logrocket.com/how-to-set-up-node-typescript-express/)
 
 ## Observações
 
