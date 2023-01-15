@@ -12,19 +12,19 @@ const login = async (req: Request, res: Response) => {
     const user = await UserModel.findOne(filter, fields);
 
     if (!user) {
-      return ApiResponse.notFound(res, 'Usuário não encontrado', { username, password })
+      return ApiResponse.notFound(res, 'Usuário não encontrado', { username, password });
     }
 
     // verifica a senha
     if (!AuthHelper.comparePassword(password, user.password)) {
-      return ApiResponse.unauthorized(res, 'Senha incorreta', { username, password })
+      return ApiResponse.unauthorized(res, 'Senha incorreta', { username, password });
     }
 
     // se chegou aqui, gera o token e retorna os dados do usuario
     const authenticatedUserData = {
       username: user.username,
-      token: AuthHelper.generateToken(user._id.toString(), user.username)
-    }
+      token: AuthHelper.generateToken(user._id.toString(), user.username),
+    };
 
     return ApiResponse.success(res, 'Usuário logado com sucesso', authenticatedUserData);
   } catch (err) {
@@ -44,7 +44,7 @@ const profile = async (req: Request, res: Response) => {
     const user = await UserModel.findOne(filter, fields);
 
     if (!user) {
-      return ApiResponse.notFound(res, 'Perfil não encontrado', { _id })
+      return ApiResponse.notFound(res, 'Perfil não encontrado', { _id });
     }
 
     return ApiResponse.success(res, 'Perfil retornado com sucesso', user);

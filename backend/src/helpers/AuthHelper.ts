@@ -13,7 +13,9 @@ const generateToken = (_id: string, username: string) => {
     throw new Error('JWT secret is undefined!');
   }
 
-  const token = jwt.sign({ _id, username }, jwtSecret, { expiresIn: process.env.TOKEN_EXPIRE_TIME });
+  const token = jwt.sign({ _id, username }, jwtSecret, {
+    expiresIn: process.env.TOKEN_EXPIRE_TIME,
+  });
 
   return token;
 };
