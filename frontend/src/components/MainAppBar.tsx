@@ -91,9 +91,14 @@ const MainAppBar = () => {
             />
           </Link>
           <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-            <Typography sx={{ color: 'black' }} >
-              {username}
-            </Typography>
+            <Box display="flex" flexDirection="column" sx={{ textAlign: 'right' }}  >
+              <Typography sx={{ color: 'black' }} >
+                {username}
+              </Typography>
+              <Typography sx={{ color: 'black' }} >
+                Bem-vindo!
+              </Typography>
+            </Box>
             <IconButton size="large" onClick={handleOpenMenu} color="inherit">
               <AccountCircle sx={{ color: 'black' }} />
             </IconButton>
