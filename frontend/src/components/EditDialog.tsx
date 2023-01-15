@@ -9,7 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import { MaskedTextField } from './index';
 import { IFormData, INITIAL_FORM_DATA, MainContext } from '../@types';
-import { api } from '../services';
+import { api, AuthService } from '../services';
 
 interface EditDialogProps {
   type: 'edit' | 'add' | 'delete';
@@ -21,6 +21,7 @@ interface EditDialogProps {
 
 const EditDialog = ({ type, open, onClose, onSave, _id }: EditDialogProps) => {
   const { setSnackbar } = useContext(MainContext);
+  const token = AuthService.getToken();
 
   const [formData, setFormData] = useState<IFormData>(INITIAL_FORM_DATA);
   const [loading, setLoading] = useState(false);
@@ -61,7 +62,7 @@ const EditDialog = ({ type, open, onClose, onSave, _id }: EditDialogProps) => {
 
     try {
       setLoading(true);
-      const response = await api.get(`clients/${_id}`);
+      const response = await api.get(`clients/${_id}`, { headers: { 'x-access-token': token } });
       if (!response || !response.data || !response.data.data) {
         throw new Error('Reposta da API mal formatada!');
       }
@@ -78,7 +79,7 @@ const EditDialog = ({ type, open, onClose, onSave, _id }: EditDialogProps) => {
     } finally {
       setLoading(false);
     }
-  }, [setSnackbar, _id]);
+  }, [setSnackbar, _id, token]);
 
   useEffect(() => {
     getClientDataById();

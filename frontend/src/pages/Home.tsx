@@ -21,7 +21,7 @@ import { USER_CARD_WIDTH } from '../theme';
 import { IRandomUser, MainContext } from '../@types';
 
 const RANDOM_USER_API_VERSION = '1.4';
-const RANDOM_USER_API_NUMBER_OF_RESULTS = '5';
+const RANDOM_USER_API_NUMBER_OF_RESULTS = '6';
 const RANDOM_USER_API_PASSWORD_TYPE = 'upper,lower,number,10-16';
 const RANDOM_USER_API_RESPONSE_FORMAT = 'json';
 const RANDOM_USER_API_NATIONALITIES = 'br,us';

@@ -7,6 +7,7 @@ import { MainContext, IFormData } from '../@types';
 
 const Clients = () => {
   const { setSnackbar } = useContext(MainContext);
+  const token = AuthService.getToken();
 
   const [dialog, setDialog] = useState({
     open: false,
@@ -28,7 +29,7 @@ const Clients = () => {
     try {
       setLoading(true);
 
-      const response = await api.get('clients', { headers: { 'x-access-token': AuthService.getToken() } });
+      const response = await api.get('clients', { headers: { 'x-access-token': token } });
       if (!response || !response.data || !Array.isArray(response.data.data)) {
         throw new Error('Reposta da API mal formatada!');
       }
@@ -45,16 +46,16 @@ const Clients = () => {
     } finally {
       setLoading(false);
     }
-  }, [setSnackbar]);
+  }, [setSnackbar, token]);
 
   const handleDialogSave = async (data: IFormData) => {
     try {
       if (dialog.type === 'add') {
-        await api.post('/clients', { ...data });
+        await api.post('/clients', { ...data }, { headers: { 'x-access-token': token } });
       } else if (dialog.type === 'edit' && dialog._id) {
-        await api.put(`/clients/${dialog._id}`, { ...data });
+        await api.put(`/clients/${dialog._id}`, { ...data }, { headers: { 'x-access-token': token } });
       } else if (dialog.type === 'delete' && dialog._id) {
-        await api.delete(`/clients/${dialog._id}`);
+        await api.delete(`/clients/${dialog._id}`, { headers: { 'x-access-token': token } });
       }
 
       // atualiza a tabela
