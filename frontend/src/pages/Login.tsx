@@ -26,8 +26,10 @@ interface ILoginFormData {
 const INITIAL_LOGIN_FORM_DATA: ILoginFormData = {
   username: '',
   password: '',
-  rememberMe: false,
+  rememberMe: true,
 };
+
+const SNACKBAR_DELAY_MILISECONDS = 500;
 
 const Copyright = (props: TypographyProps) => (
   <Typography variant="body2" align="center" {...props}>
@@ -50,6 +52,12 @@ const Login = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (formData.rememberMe) {
+      AuthService.setStorage(localStorage)
+    } else {
+      AuthService.setStorage(sessionStorage)
+    }
+
     try {
       setLoading(true);
 
@@ -71,7 +79,7 @@ const Login = () => {
         open: true,
       }));
 
-      setTimeout(() => navigation('/home'), 1000);
+      setTimeout(() => navigation('/home'), SNACKBAR_DELAY_MILISECONDS);
     } catch (error) {
       setSnackbar((prev) => ({
         ...prev,

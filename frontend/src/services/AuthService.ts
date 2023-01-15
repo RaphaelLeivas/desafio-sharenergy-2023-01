@@ -1,22 +1,31 @@
 class Auth {
-  isAuthenticated = (): boolean => !!localStorage.getItem('token');
+
+  // localStorage -> remember me = true
+  // sessionStorage -> remember me = false
+  storage: Storage = localStorage
+
+  setStorage(newStorage: Storage) {
+    this.storage = newStorage;
+  }
+  
+  isAuthenticated = (): boolean => !!this.storage.getItem('token');
 
   logout = (): void => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
+    this.storage.removeItem('token');
+    this.storage.removeItem('username');
   };
 
   setToken = (token: string) => {
-    localStorage.setItem('token', token);
+    this.storage.setItem('token', token);
   };
 
   setUsername = (username: string) => {
-    localStorage.setItem('username', username);
+    this.storage.setItem('username', username);
   };
 
-  getToken = (): string => localStorage.getItem('token') ?? '';
+  getToken = (): string => this.storage.getItem('token') ?? '';
 
-  getUsername = (): string => localStorage.getItem('username') ?? '';
+  getUsername = (): string => this.storage.getItem('username') ?? '';
 }
 
 export default new Auth();

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useContext } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { CustomDataTable, EditDialog } from '../components';
-import { api } from '../services';
+import { api, AuthService } from '../services';
 import { MainContext, IFormData } from '../@types';
 
 const Clients = () => {
@@ -28,7 +28,7 @@ const Clients = () => {
     try {
       setLoading(true);
 
-      const response = await api.get('clients');
+      const response = await api.get('clients', { headers: { 'x-access-token': AuthService.getToken() } });
       if (!response || !response.data || !Array.isArray(response.data.data)) {
         throw new Error('Reposta da API mal formatada!');
       }
