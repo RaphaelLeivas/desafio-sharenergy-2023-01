@@ -6,14 +6,14 @@ const hashPassword = (password: string) => bcrypt.hashSync(password, bcrypt.genS
 const comparePassword = (password: string, hashPassword: string) =>
   bcrypt.compareSync(password, hashPassword);
 
-const generateToken = (id: string, username: string) => {
+const generateToken = (_id: string, username: string) => {
   const jwtSecret = process.env.JWT_SECRET;
 
   if (!jwtSecret) {
     throw new Error('JWT secret is undefined!');
   }
 
-  const token = jwt.sign({ id, username }, jwtSecret, { expiresIn: process.env.TOKEN_EXPIRE_TIME });
+  const token = jwt.sign({ _id, username }, jwtSecret, { expiresIn: process.env.TOKEN_EXPIRE_TIME });
 
   return token;
 };

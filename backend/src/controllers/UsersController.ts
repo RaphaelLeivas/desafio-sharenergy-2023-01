@@ -42,17 +42,17 @@ const list = async (req: Request, res: Response) => {
 
 const getById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    if (!Validators.isValidObjectId(id)) {
-      return ApiResponse.validationError(res, 'Id informado na query não é válido', { id });
+    const { _id } = req.params;
+    if (!Validators.isValidObjectId(_id)) {
+      return ApiResponse.validationError(res, 'Id informado na query não é válido', { _id });
     }
 
-    const filter = { _id: id };
+    const filter = { _id };
     const fields = {};
     const user = await UserModel.findOne(filter, fields);
 
     if (!user) {
-      return ApiResponse.notFound(res, 'Usuário não encontrado pelo id', { id });
+      return ApiResponse.notFound(res, 'Usuário não encontrado pelo id', { _id });
     }
 
     return ApiResponse.success(res, 'Usuário retornado com sucesso', user);
@@ -63,22 +63,22 @@ const getById = async (req: Request, res: Response) => {
 
 const updateById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    if (!Validators.isValidObjectId(id)) {
-      return ApiResponse.validationError(res, 'Id informado na query não é válido', { id });
+    const { _id } = req.params;
+    if (!Validators.isValidObjectId(_id)) {
+      return ApiResponse.validationError(res, 'Id informado na query não é válido', { _id });
     }
 
     const { username, password } = req.body;
     const newUserData = { username, password: AuthHelper.hashPassword(password) };
     Validators.validateUser(newUserData as any); // gambiarra
 
-    const filter = { _id: id };
+    const filter = { _id };
     const fields = {};
 
     const user = await UserModel.findOne(filter, fields);
 
     if (!user) {
-      return ApiResponse.notFound(res, 'Usuário não encontrado pelo id', { id });
+      return ApiResponse.notFound(res, 'Usuário não encontrado pelo id', { _id });
     }
 
     user.username = newUserData.username;
@@ -97,18 +97,18 @@ const updateById = async (req: Request, res: Response) => {
 
 const deleteById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    if (!Validators.isValidObjectId(id)) {
-      return ApiResponse.validationError(res, 'Id informado na query não é válido', { id });
+    const { _id } = req.params;
+    if (!Validators.isValidObjectId(_id)) {
+      return ApiResponse.validationError(res, 'Id informado na query não é válido', { _id });
     }
 
-    const filter = { _id: id };
+    const filter = { _id };
     const fields = {};
 
     const user = await UserModel.findOne(filter, fields);
 
     if (!user) {
-      return ApiResponse.notFound(res, 'Usuário não encontrado pelo id', { id });
+      return ApiResponse.notFound(res, 'Usuário não encontrado pelo id', { _id });
     }
 
     user.active = false;

@@ -42,17 +42,17 @@ const list = async (req: Request, res: Response) => {
 
 const getById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    if (!Validators.isValidObjectId(id)) {
-      return ApiResponse.validationError(res, 'Id informado na query não é válido', { id });
+    const { _id } = req.params;
+    if (!Validators.isValidObjectId(_id)) {
+      return ApiResponse.validationError(res, 'Id informado na query não é válido', { _id });
     }
 
-    const filter = { _id: id };
+    const filter = { _id };
     const fields = {};
     const client = await ClientModel.findOne(filter, fields);
 
     if (!client) {
-      return ApiResponse.notFound(res, 'Cliente não encontrado pelo id', { id });
+      return ApiResponse.notFound(res, 'Cliente não encontrado pelo id', { _id });
     }
 
     return ApiResponse.success(res, 'Cliente retornado com sucesso', client);
@@ -63,22 +63,22 @@ const getById = async (req: Request, res: Response) => {
 
 const updateById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    if (!Validators.isValidObjectId(id)) {
-      return ApiResponse.validationError(res, 'Id informado na query não é válido', { id });
+    const { _id } = req.params;
+    if (!Validators.isValidObjectId(_id)) {
+      return ApiResponse.validationError(res, 'Id informado na query não é válido', { _id });
     }
 
     const { name, cpf, email, address, phone } = req.body;
     const newClientData = { name, cpf, email, address, phone };
     Validators.validateClient(newClientData);
 
-    const filter = { _id: id };
+    const filter = { _id };
     const fields = {};
 
     const client = await ClientModel.findOne(filter, fields);
 
     if (!client) {
-      return ApiResponse.notFound(res, 'Cliente não encontrado pelo id', { id });
+      return ApiResponse.notFound(res, 'Cliente não encontrado pelo id', { _id });
     }
 
     client.name = name;
@@ -100,18 +100,18 @@ const updateById = async (req: Request, res: Response) => {
 
 const deleteById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    if (!Validators.isValidObjectId(id)) {
-      return ApiResponse.validationError(res, 'Id informado na query não é válido', { id });
+    const { _id } = req.params;
+    if (!Validators.isValidObjectId(_id)) {
+      return ApiResponse.validationError(res, 'Id informado na query não é válido', { _id });
     }
 
-    const filter = { _id: id };
+    const filter = { _id };
     const fields = {};
 
     const client = await ClientModel.findOne(filter, fields);
 
     if (!client) {
-      return ApiResponse.notFound(res, 'Cliente não encontrado pelo id', { id });
+      return ApiResponse.notFound(res, 'Cliente não encontrado pelo id', { _id });
     }
 
     client.active = false;
