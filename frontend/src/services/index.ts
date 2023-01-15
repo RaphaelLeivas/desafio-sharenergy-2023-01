@@ -1,2 +1,2 @@
-export { default as AuthService } from './Auth';
+export { default as AuthService } from './AuthService';
 export { api } from './api';

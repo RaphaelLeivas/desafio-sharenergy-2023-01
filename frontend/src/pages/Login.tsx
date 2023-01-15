@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -9,20 +9,22 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography, { TypographyProps } from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import { useNavigation } from '../navigation';
-import { AuthService } from '../services';
+import { AuthService, api } from '../services';
+import { MainContext } from '../@types';
 
-interface IFormData {
-  email: string;
+interface ILoginFormData {
+  username: string;
   password: string;
   rememberMe: boolean;
 }
 
-const INITIAL_FORM_DATA: IFormData = {
-  email: '',
+const INITIAL_LOGIN_FORM_DATA: ILoginFormData = {
+  username: '',
   password: '',
   rememberMe: false,
 };
@@ -40,13 +42,46 @@ const Copyright = (props: TypographyProps) => (
 
 const Login = () => {
   const navigation = useNavigation();
-  const [formData, setFormData] = useState<IFormData>(INITIAL_FORM_DATA);
+  const { setSnackbar } = useContext(MainContext);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [formData, setFormData] = useState<ILoginFormData>(INITIAL_LOGIN_FORM_DATA);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    AuthService.setToken('tokenFakeTMP');
-    navigation('/home');
+    try {
+      setLoading(true);
+
+      const response = await api.post('login', { ...formData });
+
+      if (!response || !response.data || !response.data.data) {
+        throw new Error('Responsa da API mal formatada');
+      }
+
+      const { token, username } = response.data.data;
+
+      AuthService.setUsername(username);
+      AuthService.setToken(token);
+
+      setSnackbar((prev) => ({
+        ...prev,
+        message: 'Logado com sucesso',
+        type: 'success',
+        open: true,
+      }));
+
+      setTimeout(() => navigation('/home'), 1000);
+    } catch (error) {
+      setSnackbar((prev) => ({
+        ...prev,
+        message: 'Usuário ou senha incorretos!',
+        type: 'error',
+        open: true,
+      }));
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleFormDataChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,7 +115,7 @@ const Login = () => {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-          <LockOutlinedIcon />
+          <LockOutlinedIcon sx={{ color: 'black' }} />
         </Avatar>
         <Typography component="h1" variant="h5">
           Login
@@ -90,11 +125,10 @@ const Login = () => {
             margin="normal"
             required
             fullWidth
-            label="Email"
-            name="email"
-            autoComplete="email"
+            label="Usuário"
+            name="username"
             autoFocus
-            value={formData.email}
+            value={formData.username}
             onChange={handleFormDataChange}
           />
           <TextField
@@ -119,9 +153,13 @@ const Login = () => {
               />
             }
           />
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Login
-          </Button>
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+              Login
+            </Button>
+          )}
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
