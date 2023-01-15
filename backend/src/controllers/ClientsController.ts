@@ -11,14 +11,7 @@ const create = async (req: Request, res: Response) => {
     const client = new ClientModel(clientToCreate);
     await client.save();
 
-    const clientData = {
-      name: client.name,
-      cpf: client.cpf,
-      address: client.address,
-      phone: client.phone,
-      email: client.email,
-    };
-    return ApiResponse.success(res, 'Cliente adicionado com sucesso', clientData);
+    return ApiResponse.success(res, 'Cliente adicionado com sucesso', client);
   } catch (err) {
     if (err.validationError) {
       return ApiResponse.validationError(res, err.validationError, req.body);

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ClientModel } from '../models';
+import { UserModel, ClientModel } from '../models';
 
 const isValidObjectId = (id: string): boolean => mongoose.isValidObjectId(id);
 
@@ -25,7 +25,18 @@ const validateClient = (client: typeof ClientModel.schema.paths) => {
   }
 };
 
+const validateUser = (user: typeof UserModel.schema.paths) => {
+  if (!user.username || typeof user.username !== 'string') {
+    throw { validationError: 'Nome de usuário válido deve ser informado' };
+  }
+
+  if (!user.password || typeof user.password !== 'string') {
+    throw { validationError: 'Senha válida deve ser informada' };
+  }
+};
+
 export default {
   isValidObjectId,
   validateClient,
+  validateUser,
 };

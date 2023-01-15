@@ -1,7 +1,14 @@
 import express from 'express';
-import { ClientsController } from './controllers';
+import { ClientsController, UsersController } from './controllers';
 
 const routes = express.Router();
+
+// user routes
+routes.get('/users', UsersController.list);
+routes.get('/users/:id', UsersController.getById);
+routes.post('/users', UsersController.create);
+routes.put('/users/:id', UsersController.updateById);
+routes.delete('/users/:id', UsersController.deleteById);
 
 // client routes
 routes.get('/clients', ClientsController.list);
