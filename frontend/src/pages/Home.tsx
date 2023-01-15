@@ -188,7 +188,7 @@ const Home = () => {
         <Button
           variant="contained"
           onClick={getNewUsersSeed}
-          startIcon={<RefreshIcon />}
+          startIcon={<RefreshIcon sx={{ color: 'black' }} />}
           sx={{ mt: { xs: 2, md: 0 } }}
         >
           Novos Usuários
@@ -210,7 +210,7 @@ const Home = () => {
           <ChevronLeftIcon fontSize="large" />
         </IconButton>
         <Typography variant="h6">
-          Exibindo Página {currentPage} de {MAX_NUMBER_OF_PAGES}
+          Página {currentPage} de {MAX_NUMBER_OF_PAGES}
         </Typography>
         <IconButton size="large" onClick={() => handleChangePage('next')}>
           <ChevronRightIcon fontSize="large" />

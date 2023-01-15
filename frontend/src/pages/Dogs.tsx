@@ -53,16 +53,8 @@ const Dogs = () => {
       ) : (
         <Box
           component="div"
-          sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+          sx={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}
         >
-          <Button
-            variant="contained"
-            sx={{ mb: 2, mt: 2 }}
-            startIcon={<RefreshIcon />}
-            onClick={getDog}
-          >
-            Novo Dog
-          </Button>
           <Card
             sx={{
               maxWidth: { xs: 250, md: 600 },
@@ -72,6 +64,13 @@ const Dogs = () => {
             }}
             elevation={16}
           >
+            <Button
+              variant="contained"
+              startIcon={<RefreshIcon sx={{ color: 'black' }} />}
+              onClick={getDog}
+            >
+              Novo Dog
+            </Button>
             {dogMedia}
           </Card>
         </Box>
