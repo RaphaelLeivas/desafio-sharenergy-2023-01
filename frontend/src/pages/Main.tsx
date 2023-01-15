@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { styled } from '@mui/material/styles';
 
-import { MainAppBar, CustomSnackbar } from '../components';
-import { MainContext, DEFAULT_SNACKBAR_OPTIONS, SnackbarOptions } from '../@types';
+import { MainAppBar } from '../components';
 import { DRAWER_WIDTH } from '../theme';
 import { AppRoutes } from '../navigation';
+import { MainContext } from '../@types';
 
 const MainContent = styled('main')<{
   open?: boolean;
@@ -26,31 +26,14 @@ const MainContent = styled('main')<{
 }));
 
 const Main = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(true);
-  const [snackbar, setSnackbar] = useState<SnackbarOptions>(DEFAULT_SNACKBAR_OPTIONS);
+  const { isDrawerOpen } = useContext(MainContext);
 
   return (
     <>
-      <MainContext.Provider
-        value={{
-          isDrawerOpen: isDrawerOpen,
-          setIsDrawerOpen: setIsDrawerOpen,
-          snackbar: snackbar,
-          setSnackbar: setSnackbar,
-        }}
-      >
-        <MainAppBar />
-        <MainContent open={isDrawerOpen}>
-          <AppRoutes />
-        </MainContent>
-        <CustomSnackbar
-          open={snackbar.open}
-          handleClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
-          message={snackbar.message}
-          type={snackbar.type}
-          duration={snackbar.duration}
-        />
-      </MainContext.Provider>
+      <MainAppBar />
+      <MainContent open={isDrawerOpen}>
+        <AppRoutes />
+      </MainContent>
     </>
   );
 };

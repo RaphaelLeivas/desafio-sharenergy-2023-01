@@ -19,23 +19,21 @@ import { MUI_DATATABLE_LABELS } from '../constants';
 
 interface DataTableProps {
   columns: { name: string; label: string }[];
-  editCallback?: (tableData: MUIDataTableMeta) => void;
-  deleteCallback?: (tableData: MUIDataTableMeta) => void;
-  addCallback?: () => void;
+  onEditIconClick?: (tableData: MUIDataTableMeta) => void;
+  onDeleteIconClick?: (tableData: MUIDataTableMeta) => void;
+  onAddIconClick?: () => void;
   title: string;
   data: Array<any>;
 }
 
 const CustomDataTable = ({
   columns,
-  editCallback = () => undefined,
-  deleteCallback = () => undefined,
-  addCallback = () => undefined,
+  onEditIconClick = () => undefined,
+  onDeleteIconClick = () => undefined,
+  onAddIconClick = () => undefined,
   title,
   data,
 }: DataTableProps) => {
-  const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
-
   const tableOptions: MUIDataTableOptions = {
     textLabels: MUI_DATATABLE_LABELS,
     selectableRows: 'none',
@@ -61,7 +59,7 @@ const CustomDataTable = ({
             },
             p: 1.5,
           }}
-          onClick={addCallback}
+          onClick={onAddIconClick}
         >
           <AddIcon color="success" />
         </IconButton>
@@ -72,13 +70,13 @@ const CustomDataTable = ({
   let tableColumns: MUIDataTableColumn[] = [];
 
   tableColumns.push({
-    name: 'id',
+    name: '_id',
     label: 'id',
     options: {
       filter: true,
       sort: true,
       sortThirdClickReset: true,
-      display: isDevelopment ? false : 'excluded',
+      display: false,
     },
   });
 
@@ -104,11 +102,11 @@ const CustomDataTable = ({
       print: false,
       customBodyRender: (value, tableMeta) => (
         <Box display="flex" flexDirection="row" textAlign="center">
-          <IconButton aria-label="Editar" onClick={() => editCallback(tableMeta)}>
+          <IconButton aria-label="Editar" onClick={() => onEditIconClick(tableMeta)}>
             <EditIcon />
           </IconButton>
 
-          <IconButton aria-label="Remover" onClick={() => deleteCallback(tableMeta)}>
+          <IconButton aria-label="Remover" onClick={() => onDeleteIconClick(tableMeta)}>
             <DeleteIcon />
           </IconButton>
         </Box>

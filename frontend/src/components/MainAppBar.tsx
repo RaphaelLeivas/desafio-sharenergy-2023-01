@@ -23,6 +23,7 @@ const MainAppBar = () => {
   const navigation = useNavigation();
   const theme = useTheme();
   const { isDrawerOpen, setIsDrawerOpen } = useContext(MainContext);
+  const username = AuthService.getUsername();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -89,10 +90,19 @@ const MainAppBar = () => {
               src={logoCompany}
             />
           </Link>
-          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
+          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+            <Box display="flex" flexDirection="column" sx={{ textAlign: 'right' }}  >
+              <Typography sx={{ color: 'black' }} >
+                {username}
+              </Typography>
+              <Typography sx={{ color: 'black' }} >
+                Bem-vindo!
+              </Typography>
+            </Box>
             <IconButton size="large" onClick={handleOpenMenu} color="inherit">
               <AccountCircle sx={{ color: 'black' }} />
             </IconButton>
+
             <Menu
               anchorEl={anchorEl}
               anchorOrigin={{
