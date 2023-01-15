@@ -5,7 +5,7 @@ import { ApiResponse, Validators } from '../helpers';
 const create = async (req: Request, res: Response) => {
   try {
     const { name, cpf, email, address, phone } = req.body;
-    const clientToCreate = { name, cpf, email, address, phone }
+    const clientToCreate = { name, cpf, email, address, phone };
     Validators.validateClient(clientToCreate);
 
     const client = new ClientModel(clientToCreate);

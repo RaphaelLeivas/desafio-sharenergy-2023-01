@@ -20,7 +20,7 @@ import { MUI_DATATABLE_LABELS } from '../constants';
 interface DataTableProps {
   columns: { name: string; label: string }[];
   onEditIconClick?: (tableData: MUIDataTableMeta) => void;
-  deleteCallback?: (tableData: MUIDataTableMeta) => void;
+  onDeleteIconClick?: (tableData: MUIDataTableMeta) => void;
   onAddIconClick?: () => void;
   title: string;
   data: Array<any>;
@@ -29,7 +29,7 @@ interface DataTableProps {
 const CustomDataTable = ({
   columns,
   onEditIconClick = () => undefined,
-  deleteCallback = () => undefined,
+  onDeleteIconClick = () => undefined,
   onAddIconClick = () => undefined,
   title,
   data,
@@ -106,7 +106,7 @@ const CustomDataTable = ({
             <EditIcon />
           </IconButton>
 
-          <IconButton aria-label="Remover" onClick={() => deleteCallback(tableMeta)}>
+          <IconButton aria-label="Remover" onClick={() => onDeleteIconClick(tableMeta)}>
             <DeleteIcon />
           </IconButton>
         </Box>

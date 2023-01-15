@@ -12,11 +12,11 @@ import { IFormData, INITIAL_FORM_DATA, MainContext } from '../@types';
 import { api } from '../services';
 
 interface EditDialogProps {
-  type: 'edit' | 'add';
+  type: 'edit' | 'add' | 'delete';
   open: boolean;
-  onClose: () => void;
-  onSave: (data: IFormData, _id?: string) => Promise<void>; // async 
   _id?: string;
+  onClose: () => void;
+  onSave: (data: IFormData) => Promise<void>; // async
 }
 
 const EditDialog = ({ type, open, onClose, onSave, _id }: EditDialogProps) => {
@@ -40,9 +40,23 @@ const EditDialog = ({ type, open, onClose, onSave, _id }: EditDialogProps) => {
     });
   };
 
-  const getClientData = useCallback(async () => {
+  const getTitleByType = () => {
+    switch (type) {
+      case 'add':
+        return 'Adicionar';
+      case 'edit':
+        return 'Editar';
+      case 'delete':
+        return 'Excluir';
+      default:
+        return '';
+    }
+  };
+
+  const getClientDataById = useCallback(async () => {
     if (!_id) {
-      return
+      setFormData(INITIAL_FORM_DATA);
+      return;
     }
 
     try {
@@ -51,9 +65,9 @@ const EditDialog = ({ type, open, onClose, onSave, _id }: EditDialogProps) => {
       if (!response || !response.data || !response.data.data) {
         throw new Error('Reposta da API mal formatada!');
       }
-  
+
       const fetchedClient = response.data.data;
-      setFormData(fetchedClient)
+      setFormData(fetchedClient);
     } catch (error) {
       setSnackbar((prev) => ({
         ...prev,
@@ -64,15 +78,11 @@ const EditDialog = ({ type, open, onClose, onSave, _id }: EditDialogProps) => {
     } finally {
       setLoading(false);
     }
-  }, [setSnackbar, _id])
+  }, [setSnackbar, _id]);
 
   useEffect(() => {
-    setFormData((prev) => open ? INITIAL_FORM_DATA : prev)
-  }, [open])
-
-  useEffect(() => {
-    getClientData()
-  }, [getClientData])
+    getClientDataById();
+  }, [getClientDataById]);
 
   return (
     <Dialog
@@ -82,68 +92,74 @@ const EditDialog = ({ type, open, onClose, onSave, _id }: EditDialogProps) => {
       PaperProps={{ sx: { bgcolor: '#222222', p: 4 } }}
     >
       <Typography variant="h5" sx={{ mb: 2 }}>
-        {type === 'edit' ? 'Editar ' : 'Cadastrar '} Cliente
+        {getTitleByType() + ' '} Cliente
       </Typography>
       {loading ? (
         <CircularProgress />
       ) : (
         <Box component="form" onSubmit={handleSubmit} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
-              <TextField
-                variant="standard"
-                margin="normal"
-                fullWidth
-                label="Nome"
-                name="name"
-                autoFocus
-                value={formData.name}
-                onChange={handleFormDataChange}
-              />
-              <TextField
-                variant="standard"
-                margin="normal"
-                fullWidth
-                name="email"
-                label="Email"
-                value={formData.email}
-                onChange={handleFormDataChange}
-              />
-              <MaskedTextField
-                variant="standard"
-                margin="normal"
-                fullWidth
-                name="cpf"
-                label="CPF"
-                value={formData.cpf}
-                onChange={handleFormDataChange}
-                mask="999.999.999-99"
-              />
+          {type === 'delete' ? (
+            <Typography>
+              Deseja mesmo excluir o cliente <b>{formData.name}</b>?
+            </Typography>
+          ) : (
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  variant="standard"
+                  margin="normal"
+                  fullWidth
+                  label="Nome"
+                  name="name"
+                  autoFocus
+                  value={formData.name}
+                  onChange={handleFormDataChange}
+                />
+                <TextField
+                  variant="standard"
+                  margin="normal"
+                  fullWidth
+                  name="email"
+                  label="Email"
+                  value={formData.email}
+                  onChange={handleFormDataChange}
+                />
+                <MaskedTextField
+                  variant="standard"
+                  margin="normal"
+                  fullWidth
+                  name="cpf"
+                  label="CPF"
+                  value={formData.cpf}
+                  onChange={handleFormDataChange}
+                  mask="999.999.999-99"
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  variant="standard"
+                  margin="normal"
+                  fullWidth
+                  label="Endereço"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleFormDataChange}
+                />
+                <MaskedTextField
+                  variant="standard"
+                  margin="normal"
+                  fullWidth
+                  name="phone"
+                  label="Telefone"
+                  value={formData.phone}
+                  onChange={handleFormDataChange}
+                  mask="(99) 9 9999-9999"
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                variant="standard"
-                margin="normal"
-                fullWidth
-                label="Endereço"
-                name="address"
-                value={formData.address}
-                onChange={handleFormDataChange}
-              />
-              <MaskedTextField
-                variant="standard"
-                margin="normal"
-                fullWidth
-                name="phone"
-                label="Telefone"
-                value={formData.phone}
-                onChange={handleFormDataChange}
-                mask="(99) 9 9999-9999"
-              />
-            </Grid>
-          </Grid>
+          )}
 
-          <Box component="div" width="100%" display="flex" justifyContent="flex-end">
+          <Box component="div" width="100%" display="flex" justifyContent="flex-end" sx={{ mt: 4 }}>
             <Button color="error" variant="outlined" onClick={onClose}>
               Cancelar
             </Button>
