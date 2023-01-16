@@ -37,42 +37,6 @@ um ganho de performance
 
 <!-- Falta atualizar as duas seções abaixo -->
 
-## Scripts
-
-An explanation of the `package.json` scripts.
-
-| Command         | Description                                 |
-| --------------- | ------------------------------------------- |
-| `dev`           | Run TakeNote in a development environment   |
-| `dev:test`      | Run TakeNote in a testing environment       |
-| `client`        | Start a webpack dev server for the frontend |
-| `server`        | Start a nodemon dev server for the backend  |
-| `build`         | Create a production build of TakeNote       |
-| `start`         | Start a production server for TakeNote      |
-| `test`          | Run unit and component tests                |
-| `test:e2e`      | Run end-to-end tests in the command line    |
-| `test:e2e:open` | Open end-to-end tests in a browser          |
-| `test:coverage` | Get test coverage                           |
-
-## Technologies
-
-This project is possible thanks to all these open source languages, libraries, and frameworks.
-
-| Tech                                          | Description                               |
-| --------------------------------------------- | ----------------------------------------- |
-| [Codemirror](https://codemirror.net/)         | Browser-based text editor                 |
-| [TypeScript](https://www.typescriptlang.org/) | Static type-checking programming language |
-| [Node.js](https://nodejs.org/en/)             | JavaScript runtime for the backend        |
-| [Express](https://expressjs.com/)             | Server framework                          |
-| [React](https://reactjs.org/)                 | Front end user interface                  |
-| [Redux](https://redux.js.org/)                | Global state management                   |
-| [Webpack](https://webpack.js.org/)            | Asset bundler                             |
-| [Sass](https://sass-lang.com/)                | Style preprocessor                        |
-| [OAuth](https://oauth.net/)                   | Protocol for secure authorization         |
-| [ESLint](https://eslint.org/)                 | TypeScript linting                        |
-| [Jest](https://jestjs.io/)                    | Unit testing framework                    |
-| [Cypress](https://www.cypress.io/)            | End-to-end testing framework              |
-
 ## Latest Versions used in this project
 
 - React Router v6

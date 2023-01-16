@@ -1,50 +1,64 @@
-<!-- <p align="center">
-  <img src="./assets/logo.png">
-</p> -->
-
 <p align="center">Aplicação para o Desafio SHARENERGY 2023/01</p>
 
-<!-- Add Print da tela Home quando estiver concluido -->
-<!-- ![Screenshot](./assets/takenote-light.png) -->
+![Screenshot](./frontend/src/assets/screenshot-app.jpg)
 
 <p align="center">Arquivo README.md e estrutura do código baseados no repositório open source <a href="https://github.com/taniarascia/takenote">Take Note</a></p>
 
 ## Features
 
-<!-- - **Plain text notes** - take notes in an IDE-like environment that makes no assumptions
-- **Markdown preview** - view rendered HTML -->
-
-## About
-
-
-
-## Reviews
-
-> _"I think the lack of extra crap is a feature."_ — Craig Lam
-
-## Instalação
-
-### Pre-Installation
+- Tela de Login com token JWT e criptografia `bcrypt` da senha;
+- Tela Home com lista de usuários da API Random User
+- Tela Dogs com imagem de um Dog aleatório da API Random Dog
+- Tela Cats com imagem de um gato associado a um status HTTP (API HTTP Cat)
+- Tela Clients com um CRUD de clientes
+- Banco de dados Mongo DB (apenas local)
 
 
-### Installation
+## Instalação (Windows)
 
+Siga os passos abaixo para compilar a aplicação localmente. Assumindo que já possua as seguintes versões instaladas em sua máquina:
 
-#### Development mode
+- npm: v 6.14.13
+- node: v 14.17.1
 
+### 1. Frontend
 
-#### Production mode
+Instale o `yarn` e em seguida as dependencias 
 
+```
 
-#### Run in Docker
+cd frontend
+npm i -g yarn
+yarn
+yarn start
 
+```
+Agora a aplicação do frontend já deve estar rodando em seu navegador padrão!
 
-## Testing
+### 2. Backend
 
+Comece instalando o mongoDB localmente em sua máquina seguindo o [esse link do SO](https://stackoverflow.com/a/37548118/16855638),
 
-## Acknowledgements
+<br />
 
-- 
+Com o mongo rodando em sua máquina, crie um arquivo `.env` dentro da basta `./backend` e defina as seguintes variáveis de ambiente:
+
+- DB_CONNECTION_STRING
+- JWT_SECRET
+- TOKEN_EXPIRE_TIME
+
+Feito isso, instale as dependências do servidor com
+
+```
+cd backend
+yarn
+yarn dev
+
+```
+
+Usamos `nodemon` para compilar o servidor durante o desenvolvimento. 
+ 
+Com o front e back rodando, conectado ao mongo rodando local, já deve estar tudo funcionando! (espero)
 
 ## Author
 
