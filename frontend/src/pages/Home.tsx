@@ -184,6 +184,7 @@ const Home = () => {
             ),
           }}
           sx={{ width: { xs: '100%', md: '50%' } }}
+          autoComplete="off"
         />
         <Button
           variant="contained"

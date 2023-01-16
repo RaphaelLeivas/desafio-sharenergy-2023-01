@@ -1,3 +1,10 @@
+LINK DO VÍDEO NO YOUTUBE: https://youtu.be/INUp4TFlG-4
+
+<br />
+<br />
+<br />
+<br />
+
 <p align="center">Aplicação para o Desafio SHARENERGY 2023/01</p>
 
 ![Screenshot](./frontend/src/assets/screenshot-app.jpg)
@@ -47,6 +54,10 @@ Com o mongo rodando em sua máquina, crie um arquivo `.env` dentro da basta `./b
 - JWT_SECRET
 - TOKEN_EXPIRE_TIME
 
+No MongoCompass, crie as collections `users` e `clients` no banco a que o servidor está conectado. Crie o usuário default na collection `user` com as credenciais necessárias de username e senha.
+
+<br />
+
 Feito isso, instale as dependências do servidor com
 
 ```
@@ -60,7 +71,7 @@ Usamos `nodemon` para compilar o servidor durante o desenvolvimento.
  
 Com o front e back rodando, conectado ao mongo rodando local, já deve estar tudo funcionando! (espero)
 
-## Author
+## Autor
 
 - [Raphael Leivas](https://github.com/RaphaelLeivas)
 

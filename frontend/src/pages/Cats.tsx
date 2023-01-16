@@ -60,6 +60,7 @@ const Cats = () => {
               onChange={(e) => setFormCode(e.target.value)}
               value={formCode}
               onKeyDown={handleKeyPress}
+              autoComplete="off"
             />
           )}
         />

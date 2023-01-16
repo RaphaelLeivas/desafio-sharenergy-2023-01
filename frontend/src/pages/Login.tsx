@@ -138,6 +138,7 @@ const Login = () => {
             autoFocus
             value={formData.username}
             onChange={handleFormDataChange}
+            autoComplete="off"
           />
           <TextField
             margin="normal"
@@ -146,9 +147,9 @@ const Login = () => {
             name="password"
             label="Senha"
             type="password"
-            autoComplete="current-password"
             value={formData.password}
             onChange={handleFormDataChange}
+            autoComplete="off"
           />
           <FormControlLabel
             label="Remember me"

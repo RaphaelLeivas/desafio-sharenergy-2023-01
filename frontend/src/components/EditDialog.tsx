@@ -115,6 +115,7 @@ const EditDialog = ({ type, open, onClose, onSave, _id }: EditDialogProps) => {
                   autoFocus
                   value={formData.name}
                   onChange={handleFormDataChange}
+                  autoComplete="off"
                 />
                 <TextField
                   variant="standard"
@@ -124,6 +125,7 @@ const EditDialog = ({ type, open, onClose, onSave, _id }: EditDialogProps) => {
                   label="Email"
                   value={formData.email}
                   onChange={handleFormDataChange}
+                  autoComplete="off"
                 />
                 <MaskedTextField
                   variant="standard"
@@ -134,6 +136,7 @@ const EditDialog = ({ type, open, onClose, onSave, _id }: EditDialogProps) => {
                   value={formData.cpf}
                   onChange={handleFormDataChange}
                   mask="999.999.999-99"
+                  autoComplete="off"
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -145,6 +148,7 @@ const EditDialog = ({ type, open, onClose, onSave, _id }: EditDialogProps) => {
                   name="address"
                   value={formData.address}
                   onChange={handleFormDataChange}
+                  autoComplete="off"
                 />
                 <MaskedTextField
                   variant="standard"
@@ -155,6 +159,7 @@ const EditDialog = ({ type, open, onClose, onSave, _id }: EditDialogProps) => {
                   value={formData.phone}
                   onChange={handleFormDataChange}
                   mask="(99) 9 9999-9999"
+                  autoComplete="off"
                 />
               </Grid>
             </Grid>
