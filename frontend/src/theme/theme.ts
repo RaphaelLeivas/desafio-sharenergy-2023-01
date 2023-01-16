@@ -14,8 +14,8 @@ const theme = createTheme({
       main: red.A400,
     },
     success: {
-      main: green.A200,
-      dark: green.A700,
+      main: '#35ff00',
+      dark: green.A200,
     },
     text: {
       primary: '#ffffff',
@@ -123,6 +123,15 @@ const theme = createTheme({
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            backgroundColor: '#ffffff',
+          },
+        }
+      }
+    }
   },
 });
 

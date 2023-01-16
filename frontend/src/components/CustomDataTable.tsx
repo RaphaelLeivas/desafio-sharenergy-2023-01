@@ -38,6 +38,8 @@ const CustomDataTable = ({
     textLabels: MUI_DATATABLE_LABELS,
     selectableRows: 'none',
     filter: false,
+    viewColumns: false,
+    pagination: false,
     responsive: 'standard',
     downloadOptions: {
       filename: `${title}.csv`,
@@ -51,11 +53,11 @@ const CustomDataTable = ({
       <Tooltip title={title}>
         <IconButton
           sx={{
-            backgroundColor: 'success.dark',
+            backgroundColor: 'success.main',
             ml: 3,
             transition: 'background 0.3s',
             '&:hover': {
-              backgroundColor: 'success.main',
+              backgroundColor: 'success.dark',
             },
             p: 1.5,
           }}

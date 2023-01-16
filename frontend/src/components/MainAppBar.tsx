@@ -49,8 +49,9 @@ const MainAppBar = () => {
     <MenuItem
       onClick={onClick}
       sx={{
+        background: 'white',
         '&:hover': {
-          background: theme.palette.primary.dark,
+          background: theme.palette.primary.dark + '77',
           transition: '0.2s',
         },
       }}
